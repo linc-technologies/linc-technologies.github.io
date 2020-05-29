@@ -7,5 +7,5 @@ We use [redoc](https://github.com/Redocly/redoc) to generate our documentation :
 
 ```sh
 npm install -g redoc-cli
-redoc-cli bundle -o docs/index.html swagger.yaml
+redoc-cli bundle -o index.html swagger.yaml
 ``` 
