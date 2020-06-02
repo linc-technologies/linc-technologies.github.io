@@ -21,6 +21,10 @@ servers:
     description: Production Environment
 
 tags:
+  - name: Attendance
+    description: |
+      audits, records, registers, analyses, nz moe learner summaries and nz
+      moe day calculations.
   - name: Enrolments
     description: |
       Applications to Enrol.
@@ -36,6 +40,810 @@ tags:
       Schools and School Options.
 
 paths:
+  "/attendance/v4/analyses":
+    get:
+      operationId: ListAttendanceAnalyses
+      summary: List Attendance Analyses
+      description: |-
+        Lists all Attendance Analysis records for the specified students.
+      security:
+        - staging:
+          - urn:hero:attendance:records
+          - urn:hero:attendance:records:read
+        - production:
+          - urn:hero:attendance:records
+          - urn:hero:attendance:records:read
+      tags:
+        - Attendance
+      parameters:
+        - name: schoolId
+          description: schoolId enables filtering analyses by school.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: campusId
+          description: campusId enables filtering analyses by school campus.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: groupId
+          description: groupId enables filtering analyses by group membership.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: dateFrom
+          description: |-
+            dateFrom allows an analysis to be performed within a specified date
+            range, in conjunction with dateTo.
+          in: query
+          required: false
+          schema:
+            format: date
+            type: string
+        - name: dateTo
+          description: |-
+            dateTo allows an analysis to be performed within a specified date range,
+            in conjunction with dateFrom.
+          in: query
+          required: false
+          schema:
+            format: date
+            type: string
+        - name: personIds
+          description: personIds is used internally to perform a groupId filter.
+          in: query
+          required: false
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: uuid
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/attendanceListAttendanceAnalysesResponse"
+
+  "/attendance/v4/audits":
+    get:
+      operationId: AttendanceListAudits
+      summary: List Attendance Audits
+      description: |
+        Lists attendance audit records, and enables filtering for specific
+        attendance audit records.
+      security:
+        - staging:
+            - urn:hero:attendance:audits:read
+        - production:
+            - urn:hero:attendance:audits:read
+      tags:
+        - Attendance
+      parameters:
+        - name: schoolId
+          description: |
+            schoolId enables filtering attendance audit records by school.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: recordId
+          description: |
+            recordId enables filtering attendance audit records by attendance
+            record.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: dateFrom
+          description: |-
+            dateFrom enables filtering attendance audit records from a
+            specified date.
+          in: query
+          required: false
+          schema:
+            format: date
+            type: string
+        - name: dateTo
+          description: |
+            dateTo enables filtering attendance audit records to a specified
+            date.
+          in: query
+          required: false
+          schema:
+            format: date
+            type: string
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/attendanceListAuditsResponse"
+
+  "/attendance/v4/learnersummary/nzmoe":
+    get:
+      operationId: GetLearnerSummaryNzMoe
+      summary: Get Learner Summary NZ MOE
+      description: |
+        Returns an attendance summary for a Student within the NZ MOE
+        Jurisdiction.
+      security:
+        - staging:
+          - urn:hero:attendance:records
+          - urn:hero:attendance:records:read
+        - production:
+          - urn:hero:attendance:records
+          - urn:hero:attendance:records:read
+      tags:
+        - Attendance
+      parameters:
+        - name: schoolId
+          description: schoolId enables filtering attendance summaries by school.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: campusId
+          description: campusId enables filtering attendance summaries by school campus.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: personId
+          description: personId enables filtering attendance summaries by student.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/attendanceLearnerSummaryNzMoeResponse"
+
+  "/attendance/v4/nzmoedays":
+    get:
+      operationId: ListNzMoeDays
+      summary: List NZ MOE Days
+      description: |
+        Returns a list of "NZ MoE Day" records, and enables filtering for
+        specific records.
+      security:
+        - staging:
+          - urn:hero:attendance:records
+          - urn:hero:attendance:records:read
+        - production:
+          - urn:hero:attendance:records
+          - urn:hero:attendance:records:read
+      tags:
+        - Attendance
+      parameters:
+        - name: schoolId
+          description: schoolId enables filtering NzMoeDay records by a school.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: dateId
+          description: dateId enables filtering NzMoeDay records by a date.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: campusId
+          description: campusId enables filtering NzMoeDay records by a school campus.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: personId
+          description: personId enables filtering NzMoeDay records by a person.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: dateFrom
+          description: dateFrom enables filtering NzMoeDay records from a specified
+            date.
+          in: query
+          required: false
+          schema:
+            format: date
+            type: string
+        - name: dateTo
+          description: dateTo enables filtering NzMoeDay records to a specified date.
+          in: query
+          required: false
+          schema:
+            format: date
+            type: string
+        - name: groupId
+          description: |-
+            groupId enables filtering NzMoeDay records for students who are
+            current members of the given group.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: personIds
+          description: personIds enables filtering for a list of students.
+          in: query
+          required: false
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: uuid
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/attendanceListNzMoeDaysResponse"
+
+  "/attendance/v4/records":
+    get:
+      operationId: ListRecords
+      summary: List Attendance Records
+      description: |
+        Returns a list of attendance records, and enables filtering for
+        specific attendance records.
+      security:
+        - staging:
+          - urn:hero:attendance:records
+          - urn:hero:attendance:records:read
+        - production:
+          - urn:hero:attendance:records
+          - urn:hero:attendance:records:read
+      tags:
+        - Attendance
+      parameters:
+        - name: schoolId
+          description: |
+            schoolId enables filtering attendance records by a school.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: dateId
+          description: dateId enables filtering attendance records by a date.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: campusId
+          description: |
+            campusId enables filtering attendance records by a school campus.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: personId
+          description: |
+            personId enables filtering attendance records by a person.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: periodId
+          description: |
+            periodId enables filtering attendance records by a period.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: dateFrom
+          description: |
+            dateFrom enables filtering attendance records from a specified
+            date.
+          in: query
+          required: false
+          schema:
+            format: date
+            type: string
+        - name: dateTo
+          description: |
+            dateTo enables filtering attendance records to a specified date.
+          in: query
+          required: false
+          schema:
+            format: date
+            type: string
+        - name: groupId
+          description: |-
+            groupId enables filtering attendance records for students who are
+            current members of the given group.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: personIds
+          description: |-
+            personIds enables filtering for a list of students.
+            Note: Used internally by groupId filter. Therefore only supply
+            either a group ID, or personIDs.
+            Any presented personIds will be overwritten by group member personIds.
+          in: query
+          required: false
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: uuid
+        - name: absencesOnly
+          description: |-
+            absencesOnly enables filtering for only absences.
+            note: Used primarily for absence reporting.
+          in: query
+          required: false
+          schema:
+            format: boolean
+            type: boolean
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/attendanceListRecordsResponse"
+
+    post:
+      operationId: CreateRecord
+      summary: Create Record
+      description: Creates a new attendance record for a student.
+      tags:
+        - Attendance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/attendanceCreateRecordRequest"
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/attendanceRecordResponse"
+
+  "/attendance/v4/records/:bulk":
+    post:
+      operationId: BulkCreateRecords
+      summary: Bulk Create Records
+      description: |
+        Combines what would be multiple calls of the same operation to create
+        many attendance records. It optimises this process by enabling a client
+        to be able to send a single bulk create records request instead,
+        containing an array of attendance records to create.
+      security:
+        - staging:
+          - urn:hero:attendance:records
+        - production:
+          - urn:hero:attendance:records
+      tags:
+        - Attendance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                "$ref": "#/components/schemas/attendanceBulkCreateRecordsRequest"
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Empty"
+
+  "/attendance/v4/records/:bulkupdate":
+    post:
+      operationId: BulkUpdateRecords
+      summary: Bulk Update Records
+      description: |
+        Combines what would be multiple calls of the same operation to update
+        many attendance records. It optimises this process by enabling a client
+        to be able to send a single bulk update records request instead,
+        containing an array of attendance records to update.
+      security:
+        - staging:
+          - urn:hero:attendance:records
+        - production:
+          - urn:hero:attendance:records
+      tags:
+        - Attendance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/attendanceBulkUpdateRecordsRequest"
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/attendanceListRecordsResponse"
+
+  "/attendance/v4/records/{recordId}":
+    get:
+      operationId: GetRecord
+      summary: Get Record
+      description: Returns the specified attendance record.
+      security:
+        - staging:
+          - urn:hero:attendance:records
+          - urn:hero:attendance:records:read
+        - production:
+          - urn:hero:attendance:records
+          - urn:hero:attendance:records:read
+      tags:
+        - Attendance
+      parameters:
+        - name: recordId
+          description: |
+            recordId is the unique attendance record resource to get from
+            the server.
+          in: path
+          required: true
+          schema:
+            format: uuid
+            type: string
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/attendanceRecordResponse"
+
+    put:
+      operationId: UpdateRecord
+      summary: Update Record
+      description: |
+        Updates the specified attendance record with the provided resource.
+      security:
+        - staging:
+          - urn:hero:attendance:records
+        - production:
+          - urn:hero:attendance:records
+      tags:
+        - Attendance
+      parameters:
+        - name: recordId
+          description: |-
+            recordId is the unique identifier of the attendance record resource
+            to update on the server.
+          in: path
+          required: true
+          schema:
+            format: uuid
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/attendanceUpdateRecordRequest"
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/attendanceRecordResponse"
+
+    delete:
+      operationId: DeleteRecord
+      summary: Delete Record
+      description: Removes the specified attendance record.
+      security:
+        - staging:
+          - urn:hero:attendance:records:delete
+        - production:
+          - urn:hero:attendance:records:delete
+      tags:
+        - Attendance
+      parameters:
+        - name: recordId
+          description: |-
+            recordId is the unique attendance record resource to delete from
+            the server.
+          in: path
+          required: true
+          schema:
+            format: uuid
+            type: string
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Empty"
+
+  "/attendance/v4/registers":
+    get:
+      operationId: ListRegisters
+      summary: List Registers
+      description: |
+        Returns a list of attendance registers, and enables filtering for
+        specific registers.
+      security:
+        - staging:
+          - urn:hero:attendance:registers
+          - urn:hero:attendance:registers:read
+        - production:
+          - urn:hero:attendance:registers
+          - urn:hero:attendance:registers:read
+      tags:
+        - Attendance
+      parameters:
+        - name: schoolId
+          description: |
+            schoolId enables filtering group attendance register records by
+            school.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: dateId
+          description: |
+            dateId enables filtering group attendance register records by date.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: campusId
+          description: |-
+            campusId enables filtering group attendance register records by a
+            school campus.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: groupId
+          description: |
+            groupId enables filtering group attendance register records by a
+            group.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: dateFrom
+          description: |-
+            dateFrom enables filtering group attendance register records from a
+            specified date.
+          in: query
+          required: false
+          schema:
+            format: date
+            type: string
+        - name: dateTo
+          description: |-
+            dateTo enables filtering group attendance register records to a
+            specified date.
+          in: query
+          required: false
+          schema:
+            format: date
+            type: string
+        - name: periodId
+          description: |
+            periodId enables filtering group attendance register records by a
+            period.
+          in: query
+          required: false
+          schema:
+            format: uuid
+            type: string
+        - name: include
+          description: |-
+            Include enables returning related records by providing a comma
+            separated string containing the plural form of the resource names.
+            For example, 'records'.
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/attendanceListRegistersResponse"
+
+    post:
+      operationId: CreateRegister
+      summary: Create Register
+      description: Creates a new attendance register for a group of students.
+      security:
+        - staging:
+          - urn:hero:attendance:registers
+        - production:
+          - urn:hero:attendance:registers
+      tags:
+        - Attendance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/attendanceCreateRegisterRequest"
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/attendanceRegisterResponse"
+
+  "/attendance/v4/registers/:bulk":
+    post:
+      operationId: BulkCreateRegisters
+      summary: Bulk Create Registers
+      description: |
+        Combines what would be multiple calls of the same operation to create
+        many attendance registers. It optimises this process by enabling a
+        client to be able to send a single bulk create registers request
+        instead, containing an array of attendance registers to create.
+      security:
+        - staging:
+          - urn:hero:attendance:registers
+        - production:
+          - urn:hero:attendance:registers
+      tags:
+        - Attendance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/attendanceBulkCreateRegistersRequest"
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Empty"
+
+  "/attendance/v4/registers/{registerId}":
+    get:
+      operationId: GetRegister
+      summary: Get Register
+      description: Returns the specified attendance register.
+      security:
+        - staging:
+          - urn:hero:attendance:registers
+          - urn:hero:attendance:registers:read
+        - production:
+          - urn:hero:attendance:registers
+          - urn:hero:attendance:registers:read
+      tags:
+        - Attendance
+      parameters:
+        - name: registerId
+          description: |-
+            registerId is the unique attendance register resource to get from
+            the server.
+          in: path
+          required: true
+          schema:
+            format: uuid
+            type: string
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/attendanceRegisterResponse"
+
+    put:
+      operationId: UpdateRegister
+      summary: Update Register
+      description: |
+        Updates the specified attendance register with the provided resource.
+      security:
+        - staging:
+          - urn:hero:attendance:registers
+        - production:
+          - urn:hero:attendance:registers
+      tags:
+        - Attendance
+      parameters:
+        - name: registerId
+          description: |-
+            registerId is the unique identifier of the attendance register
+            resource to update on the server.
+          in: path
+          required: true
+          schema:
+            format: uuid
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/attendanceUpdateRegisterRequest"
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/attendanceRegisterResponse"
+
+    delete:
+      summary: DeleteRegister deletes the specified attendance register.
+      operationId: DeleteRegister
+      security:
+        - staging:
+          - urn:hero:attendance:registers:delete
+        - production:
+          - urn:hero:attendance:registers:delete
+      tags:
+        - Attendance
+      parameters:
+        - name: registerId
+          description: |-
+            registerId is the unique attendance register resource to delete
+            from the server.
+          in: path
+          required: true
+          schema:
+            format: uuid
+            type: string
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Empty"
+
   "/enrolments/v4/applications":
     get:
       operationId: ListApplications
@@ -634,7 +1442,7 @@ paths:
 
   "/people/v4/audits":
     get:
-      operationId: ListAudits
+      operationId: PeopleListAudits
       summary: List Audits
       description: Lists audit resources and enables filtering resources.
       security:
@@ -2689,6 +3497,625 @@ components:
            client in front of the proxy.
 
     # Service Specific Schemas
+    attendanceAttendanceAnalysis:
+      type: object
+      description: |-
+        AttendanceAnalysis provides structured information about an attendance
+        analysis report.
+      properties:
+        schoolId:
+          type: string
+          format: uuid
+          description: |-
+            schoolId is the unique identifier of the school which this analysis
+            is for.
+        personId:
+          type: string
+          format: uuid
+          description: |-
+            personId is the unique identifier of the Person (Student) who this
+            analysis is for.
+        counts:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+          description: |-
+            counts is the meat of the analysis, providing a map of attendance
+            codes to their number of occurrences.
+        total:
+          type: integer
+          format: int64
+          description: |-
+            total is the total number of attendance records for this Student
+            within the specified period.
+
+    attendanceAudit:
+      type: object
+      description: |-
+        Audit provides structured information about an attendance audit log.
+        This is used to log and track attendance changes whenever an attendance
+        record is changed.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: id is the audit record's unique identifier.
+        createTime:
+          type: integer
+          format: int64
+          description: |
+            createTime is when the resource was created in seconds from the
+            epoch.
+        schoolId:
+          type: string
+          format: uuid
+          description: |-
+            schoolId is the unique identifier of the school the attendance
+            audit log relates to.
+        recordId:
+          type: string
+          format: uuid
+          description: |-
+            recordId is the unique identifier of the attendance record this
+            audit log is linked to.
+        date:
+          type: string
+          format: date
+          description: |-
+            date contains the date the attendance was recorded against as a
+            string to facilitate filtering.
+        originalAuthorId:
+          format: uuid
+          type: string
+          description: |-
+            originalAuthorId provides the unique identifier of the original
+            attendance marker.
+        newAuthorId:
+          type: string
+          format: uuid
+          description: |
+            newAuthorId provides the unique identifier of the new attendance
+            marker.
+        originalCode:
+          type: string
+          description: |
+            originalCode provides the previously recorded attendance code.
+        newCode:
+          type: string
+          description: |
+            newCode provides the newly recorded attendance code.
+        reason:
+          type: string
+          description: |
+            reason provides a description as to why the attendance edit was
+            made.
+
+    attendanceBulkCreateRecordsRequest:
+      type: object
+      description: |-
+        BulkCreateRecordsRequest contains the request required to create multiple
+        attendance records in a single request.
+      properties:
+        records:
+          type: array
+          items:
+            "$ref": "#/components/schemas/attendanceRecord"
+          description: |
+            records contains a list of attendance records to create on the
+            server.
+
+    attendanceBulkCreateRegistersRequest:
+      type: object
+      description: |-
+        BulkCreateRegistersRequest contains the request required to create
+        multiple attendance registers in a single request.
+      properties:
+        registers:
+          type: array
+          items:
+            "$ref": "#/components/schemas/attendanceRegister"
+          description: |-
+            registers contains a list of attendance registers to create on the
+            server.
+
+    attendanceBulkUpdateRecordsRequest:
+      type: object
+      description: |-
+        BulkUpdateRecordsRequest contains the request required to update
+        multiple attendance records in a single request.
+      properties:
+        records:
+          type: array
+          items:
+            "$ref": "#/components/schemas/attendanceRecord"
+          description: |
+            records contains a list of attendance records to update on the
+            server.
+
+    attendanceCreateRecordRequest:
+      type: object
+      description: |-
+        CreateRecordRequest contains the request required to create an
+        Attendance Record resource on the server.
+      properties:
+        record:
+          "$ref": "#/components/schemas/attendanceRecord"
+
+    attendanceCreateRegisterRequest:
+      type: object
+      description: |
+        CreateRecordRequest contains the request required to create an
+        Attendance Record resource on the server.
+      properties:
+        register:
+          "$ref": "#/components/schemas/attendanceRegister"
+        records:
+          type: array
+          items:
+            "$ref": "#/components/schemas/attendanceRecord"
+
+    attendanceLearnerSummaryNzMoe:
+      type: object
+      description: |-
+        LearnerSummaryNzMoe provides structured information about a Student's
+        attendance summary for students learning under the Ministry of
+        Education.
+      properties:
+        personId:
+          type: string
+          format: uuid
+          description: |-
+            personId is the unique identifier of the Person (Student) who this
+            summary is for.
+        schoolId:
+          type: string
+          format: uuid
+          description: |-
+            schoolId is the unique identifier of the School to which this
+            summary relates.
+        campusId:
+          type: string
+          format: uuid
+          description: |-
+            campusId is the unique identifier of the Campus to which this
+            summary relates.
+        terms:
+          type: array
+          items:
+            "$ref": "#/components/schemas/attendanceLearnerSummaryNzMoeTerm"
+          description: |-
+            terms is a list of terms for which we have attendance data for the
+            Student in question.
+
+    attendanceLearnerSummaryNzMoeResponse:
+      type: object
+      description: |-
+        LearnerSummaryNzMoeResponse contains the New Zealand Attendance Summary
+        for a student as computed by the server.
+      properties:
+        summary:
+          "$ref": "#/components/schemas/attendanceLearnerSummaryNzMoe"
+        statusCode:
+          "$ref": "#/components/schemas/StatusCode"
+
+    attendanceLearnerSummaryNzMoeTerm:
+      type: object
+      description: |-
+        LearnerSummaryNzMoeTerm provides structured information about a
+        Student's attendance summary for a given school term.
+      properties:
+        year:
+          type: integer
+          format: int64
+          description: year is the calendar year for which this summary applies.
+        term:
+          type: integer
+          format: int64
+          description: term is the term number for which this summary applies.
+        total:
+          type: integer
+          format: int64
+          description: |-
+            total is the total number of attendance records for this student
+            within the specified term.
+        present:
+          type: integer
+          format: int64
+          description: |-
+            present is the number of records with a Present code for this
+            student within the specified term.
+        late:
+          type: integer
+          format: int64
+          description: |-
+            late is the number of records with a Late code for this student
+            within the specified term.
+        justified:
+          type: integer
+          format: int64
+          description: |-
+            justified is the number of records with a Justified Absence code
+            for this student within the specified term.
+        unjustified:
+          type: integer
+          format: int64
+          description: |-
+            unjustified is the number of records with an Unjustified Absence
+            code for this student within the specified term.
+
+    attendanceListAttendanceAnalysesResponse:
+      type: object
+      description: |-
+        ListAttendanceAnalysesResponse contains the response returned from the
+        server encapsulating a list of attendance analysis report resources.
+      properties:
+        analyses:
+          type: array
+          items:
+            "$ref": "#/components/schemas/attendanceAttendanceAnalysis"
+          description: analyses contains a list of attendance analysis reports from
+            the server.
+        statusCode:
+          "$ref": "#/components/schemas/StatusCode"
+
+    attendanceListAuditsResponse:
+      type: object
+      description: |-
+        ListAuditsResponse contains the response returned from the server
+        encapsulating a list of attendance record audit log resources.
+      properties:
+        audits:
+          type: array
+          items:
+            "$ref": "#/components/schemas/attendanceAudit"
+          description: |-
+            audits contains a list of attendance record audit log resources from the
+            server.
+        statusCode:
+          "$ref": "#/components/schemas/StatusCode"
+
+    attendanceListNzMoeDaysResponse:
+      type: object
+      description: |-
+        ListNzMoeDaysResponse contains the response returned from the server
+        encapsulating a list of "NZ MoE Day" resources.
+      properties:
+        nzMoeDays:
+          type: array
+          items:
+            "$ref": "#/components/schemas/attendanceNzMoeDay"
+          description: |
+            records contains a list of "NZ MoE Day" record resources from the
+            server.
+        statusCode:
+          "$ref": "#/components/schemas/StatusCode"
+
+    attendanceListRecordsResponse:
+      type: object
+      description: |-
+        ListRecordsResponse contains the response returned from the server
+        encapsulating a list of Attendance Record resources.
+      properties:
+        records:
+          type: array
+          items:
+            "$ref": "#/components/schemas/attendanceRecord"
+          description: |
+            records contains a list of attendance record resources from the
+            server.
+        statusCode:
+          "$ref": "#/components/schemas/StatusCode"
+
+    attendanceListRegistersResponse:
+      type: object
+      description: |-
+        ListRegistersResponse contains the response returned from the server
+        encapsulating a list of attendance register resources.
+      properties:
+        registers:
+          type: array
+          items:
+            "$ref": "#/components/schemas/attendanceRegister"
+          description: |-
+            registers contains a list of attendance register resources from the
+            server.
+        records:
+          type: array
+          items:
+            "$ref": "#/components/schemas/attendanceRecord"
+          description: |-
+            records contains a list of attendance record resources from the
+            server, if specified to be included.
+        statusCode:
+          "$ref": "#/components/schemas/StatusCode"
+
+    attendanceNzMoeDay:
+      type: object
+      description: |-
+        NzMoeDay provides a way to track NZ Ministry of Education Half-Day
+        Counts, for both attendance reports/audits and unjustified absence
+        alerting.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: id is the attendance record's unique identifier.
+        schoolId:
+          type: string
+          format: uuid
+          description: |
+            schoolId is the school the attendance record is assigned to.
+        campusId:
+          type: string
+          format: uuid
+          description: |
+            campusId is the school campus the attendance record is assigned to.
+        createTime:
+          type: integer
+          format: int64
+          description: |
+            createTime is when the resource was created in seconds from the
+            epoch.
+        updateTime:
+          type: integer
+          format: int64
+          description: |-
+            updateTime is the last time the resource was modified in seconds
+            from the epoch.
+        personId:
+          type: string
+          format: uuid
+          description: |-
+            personId the unique identifier of the person who this attendance
+            record is for.
+        dateId:
+          type: string
+          format: uuid
+          description: dateId is the date the attendance is assigned to.
+        date:
+          type: string
+          format: date
+          description: |-
+            date contains the date the attendance was recorded against as a
+            string to facilitate filtering.
+        present:
+          type: integer
+          format: int64
+          description: |-
+            present provides a count of "half-days attended", per the MoE
+            half-day calculation.
+        unjustifiablyAbsent:
+          type: integer
+          format: int64
+          description: |-
+            unjustifiablyAbsent provides a count of half-day unjustifiable
+            absences, per the MoE half-day unjustified absence calculation.
+            This is not actually a count of half-days.
+
+    attendanceRecord:
+      type: object
+      description: |
+        Record provides structured information about an attendance record.
+      properties:
+        id:
+          type: string
+          description: id is the attendance record's unique identifier.
+        createTime:
+          type: integer
+          format: int64
+          description: |
+            createTime is when the resource was created in seconds from the
+            epoch.
+        updateTime:
+          type: integer
+          format: int64
+          description: |-
+            updateTime is the last time the resource was modified in seconds
+            from the epoch.
+        schoolId:
+          type: string
+          format: uuid
+          description: |
+            schoolId is the school the attendance record is assigned to.
+        campusId:
+          type: string
+          format: uuid
+          description: campusId is the school campus the attendance record is assigned
+            to.
+        dateId:
+          type: string
+          format: uuid
+          description: dateId is the date the attendance is assigned to.
+        periodId:
+          type: string
+          format: uuid
+          description: periodId is the schooling class period the attendance is assigned
+            to.
+        authorId:
+          type: string
+          format: uuid
+          description: |-
+            authorId is the unique identifier of the person who marked the
+            attendance.
+        personId:
+          type: string
+          format: uuid
+          description: |-
+            personId  the unique identifier of the person who this attendance record
+            is for.
+        homeroomId:
+          type: string
+          format: uuid
+          description: |-
+            homeroomId is the unique identifier of the student's current
+            homeroom, for generating accurate historical reports.
+        date:
+          type: string
+          format: date
+          description: |-
+            date contains the date the attendance was recorded against as a string
+            to facilitate filtering.
+        code:
+          type: string
+          title: |-
+            code contains the recorded attendance code.
+            Note:
+              The validation rules around this differ depending on educational
+              jurisdictions.
+            For example, in New Zealand, the Ministry of education provide the
+            attendance code set: {?, P, L, M, D, S, G ... }
+        notes:
+          type: string
+          description: |
+            notes contains any information regarding the marked attendance.
+        autoUpdated:
+          type: boolean
+          format: boolean
+          description: |-
+            autoUpdated marks whether this Record has been auto-updated by a
+            scheduled task.
+        reason:
+          type: string
+          description: |-
+            reason contains the reason as to why the attendance code was
+            changed.
+
+            Note: this will always be empty when pulling an attendance record,
+            as this field is passed through to the audit log, but is required
+            when performing an update to an attendance record.
+
+    attendanceRecordResponse:
+      type: object
+      description: |
+        RecordResponse contains the attendance record resource stored on the
+        server.
+      properties:
+        record:
+          "$ref": "#/components/schemas/attendanceRecord"
+        statusCode:
+          "$ref": "#/components/schemas/StatusCode"
+
+    attendanceRegister:
+      type: object
+      description: |
+        Register provides structured information about an attendance register.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: id is the attendance register's unique identifier.
+        createTime:
+          type: integer
+          format: int64
+          description: |
+            createTime is when the resource was created in seconds from the
+            epoch.
+        updateTime:
+          type: integer
+          format: int64
+          description: |-
+            updateTime is the last time the resource was modified in seconds
+            from the epoch.
+        schoolId:
+          type: string
+          format: uuid
+          description: |
+            schoolId is the school the attendance register is assigned to.
+        campusId:
+          type: string
+          format: uuid
+          description: |
+            campusId is the school campus the attendance register is assigned
+            to.
+        dateId:
+          type: string
+          format: uuid
+          description: dateId is the date the attendance is assigned to.
+        date:
+          type: string
+          format: date
+          title: date contains the date in ISO 8601 format (YYYY-MM-DD)
+        periodId:
+          type: string
+          format: uuid
+          description: |
+            periodId is the schooling class period the attendance is assigned
+            to.
+        groupId:
+          type: string
+          format: uuid
+          description: groupId is the group the register is assigned to.
+        authorId:
+          type: string
+          format: uuid
+          description: |
+            authorId is the staff member who marked the attendance register.
+        recordIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: |-
+            recordIds is a list of attendance record resources that this
+            register islinked to.
+
+    attendanceRegisterResponse:
+      type: object
+      description: |-
+        RegisterResponse contains the attendance register resource stored on the
+        server.
+      properties:
+        register:
+          "$ref": "#/components/schemas/attendanceRegister"
+        records:
+          type: array
+          items:
+            "$ref": "#/components/schemas/attendanceRecord"
+        statusCode:
+          "$ref": "#/components/schemas/StatusCode"
+
+    attendanceUpdateRecordRequest:
+      type: object
+      description: |-
+        UpdateRecordRequest contains the request required to update an
+        Attendance Record resource on the server.
+      properties:
+        recordId:
+          type: string
+          format: uuid
+          description: |-
+            recordId is the unique identifier of the attendance record resource
+            to update on the server.
+        record:
+          "$ref": "#/components/schemas/attendanceRecord"
+
+    attendanceUpdateRegisterRequest:
+      type: object
+      description: |-
+        UpdateRegisterRequest contains the request required to update the
+        linked Attendance Register attendance record resources on the server.
+      properties:
+        registerId:
+          type: string
+          format: uuid
+          description: |-
+            registerId is the unique identifier of the attendance register
+            resource to update on the server.
+        authorId:
+          type: string
+          format: uuid
+          description: |-
+            authorId is the unique identifier of the person who is accountable
+            for making these attendance edits.
+        records:
+          type: array
+          items:
+            "$ref": "#/components/schemas/attendanceRecord"
+          description: |-
+            records contains a list of attendance records to replace the
+            resources stored on the server.
+
     enrolmentsApplication:
       type: object
       description: |-
@@ -2705,12 +4132,12 @@ components:
           description: |-
             id is the Enrolment Application's unique identifier.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -2879,18 +4306,6 @@ components:
         application:
           "$ref": "#/components/schemas/enrolmentsApplication"
 
-    enrolmentsUpdateApplicationRequest:
-      type: object
-      description: |
-        UpdateApplicationRequest updates an Enrolment Application on the server.
-      properties:
-        applicationId:
-          type: string
-          format: uuid
-          description: applicationId provides the unique id of the enrolment to update.
-        application:
-          "$ref": "#/components/schemas/enrolmentsApplication"
-
     enrolmentsApplicationResponse:
       type: object
       description: |
@@ -2958,12 +4373,12 @@ components:
           format: uuid
           description: id is the unique identifier of the school's enrolment schema
         createTime:
-          type: string
+          type: integer
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -3218,16 +4633,17 @@ components:
       properties:
         id:
           type: string
+          format: uuid
           description: |-
             id is the unique group identifier.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: |
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -3409,11 +4825,13 @@ components:
             jurisdiction provides a parameter in order to calculate autogroup
             membership based on the specified jurisdiction.
         rangeStart:
+          format: date
           type: string
           description: |-
             rangeStart provides a parameter in order to calculate autogroup
             membership based on being after the specified starting date.
         rangeEnd:
+          format: date
           type: string
           description: |-
             rangeEnd provides a parameter in order to calculate autogroup
@@ -3477,12 +4895,12 @@ components:
           format: uuid
           description: id is the Access Request's unique identifier.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
         processedTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             processedTime is the last time the request was actioned by the caregiver
@@ -3542,7 +4960,7 @@ components:
           format: uuid
           description: id is the unique identifier of the school's Enrolment record.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
@@ -3653,7 +5071,6 @@ components:
             caregivers with additional learners rather than adding extra copies
             of them because they don't have an email address (which is used as
             the unique identifier for a caregiver).
-
 
     peopleCaregiverSearchResult:
       type: object
@@ -3803,12 +5220,12 @@ components:
           format: uuid
           description: id is the unique identifier of the school's Enrolment record.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -4154,27 +5571,6 @@ components:
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
 
-    peopleMergePersonRequest:
-      type: object
-      properties:
-        personId:
-          type: string
-          format: uuid
-          description: |-
-            personId contains the unique identifier of the person who will become to
-            merge the record into.
-        duplicatePersonId:
-          type: string
-          format: uuid
-          description: |-
-            duplicatePersonId contains the unique identifier of the person that
-            will have their ID updated throughout the system.
-        mergedPerson:
-          "$ref": "#/components/schemas/peoplePerson"
-      description: |-
-        MergePersonRequest contains the request required to merge two Person
-        resources on the server.
-
     peoplePerson:
       type: object
       description: |-
@@ -4185,12 +5581,12 @@ components:
           type: string
           description: id is the Person's unique identifier.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -4321,21 +5717,6 @@ components:
           format: int32
           description: year specifies the year to which this count applies.
 
-    peopleProcessAccessRequestRequest:
-      type: object
-      properties:
-        requestId:
-          type: string
-          description: requestId is the acces request resource to perform the action
-            on.
-        action:
-          type: string
-          description: action contains the action to perform on the specified access
-            request.
-      description: |-
-        ProcessAccessRequestRequest contains the request required to process a
-        Access Request resource on the server.
-
     peopleSearchCaregiversResponse:
       type: object
       description: |-
@@ -4350,7 +5731,6 @@ components:
             server.
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
-
 
     peopleSearchLearnersResponse:
       type: object
@@ -4481,52 +5861,6 @@ components:
             longitude provides the precise north-south (longitudinal) point of the
             address location.
 
-    schoolsApplyOptionSetRequest:
-      type: object
-      description: ApplyOptionSetRequest applies an option set to a school.
-      properties:
-        schoolId:
-          type: string
-          description: schoolId specifies the school to apply the option set to.
-        optionSetId:
-          type: string
-          description: optionSetId specifies the option set to apply.
-
-    schoolsCreateOptionGroupRequest:
-      type: object
-      description: CreateOptionGroupRequest Creates a option group resource on the server.
-      properties:
-        optionGroup:
-          "$ref": "#/components/schemas/schoolsOptionGroup"
-
-    schoolsCreateOptionHeadingRequest:
-      type: object
-      description: CreateOptionHeadingRequest Creates a option heading resource on the server.
-      properties:
-        optionHeading:
-          "$ref": "#/components/schemas/schoolsOptionHeading"
-
-    schoolsCreateOptionRequest:
-      type: object
-      properties:
-        option:
-          "$ref": "#/components/schemas/schoolsOption"
-      description: CreateOptionRequest Creates a option resource on the server.
-
-    schoolsCreateOptionSetRequest:
-      type: object
-      properties:
-        optionSet:
-          "$ref": "#/components/schemas/schoolsOptionSet"
-      description: CreateOptionSetRequest Creates a option set resource on the server.
-
-    schoolsCreateSchoolRequest:
-      type: object
-      properties:
-        school:
-          "$ref": "#/components/schemas/schoolsSchool"
-      description: CreateGroupRequest Creates a school resource on the server.
-
     schoolsFeature:
       type: integer
       enum:
@@ -4546,7 +5880,6 @@ components:
           functionality, including Enrolments and Attendance.
         - Feature_PUPIL_BILLING (3) Pupil Billing enables finance (pupil billing)
           functionality.
-
 
     schoolsISO2CountryCode:
       type: integer
@@ -5079,20 +6412,6 @@ components:
         ListOptionHeadingsResponse contains a list of option heading resources from
         the server.
 
-    schoolsListOptionSetsResponse:
-      type: object
-      properties:
-        optionSets:
-          type: array
-          items:
-            "$ref": "#/components/schemas/schoolsOptionSet"
-          description: optionSets contains a list of option sets.
-        statusCode:
-          "$ref": "#/components/schemas/StatusCode"
-      description: |-
-        ListOptionSetsResponse contains a list of option set resources from the
-        server.
-
     schoolsListOptionsResponse:
       type: object
       description: ListOptionsResponse contains a list of option resources from the server.
@@ -5104,7 +6423,6 @@ components:
           description: options contains a list of options.
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
-
 
     schoolsListSchoolsResponse:
       type: object
@@ -5129,12 +6447,12 @@ components:
             Option Meta
             id is the unique identifier linked to an option
         createTime:
-          type: string
+          type: integer
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -5210,12 +6528,12 @@ components:
           type: string
           description: id is the unique identifier linked to an option
         createTime:
-          type: string
+          type: integer
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -5264,12 +6582,12 @@ components:
           type: string
           description: id is the unique identifier linked to an option heading
         createTime:
-          type: string
+          type: integer
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -5318,46 +6636,6 @@ components:
       description: OptionResponse returns a option resource, or informs the client of
         the error.
 
-    schoolsOptionSet:
-      type: object
-      properties:
-        id:
-          type: string
-          description: id is the unique identifier linked to an option set
-        createTime:
-          type: string
-          format: int64
-          description: createTime is when the resource was created in seconds from the
-            epoch.
-        updateTime:
-          type: string
-          format: int64
-          description: |-
-            updateTime is the last time the resource was modified in seconds from
-            the epoch.
-        name:
-          type: string
-          description: |-
-            name provides a quick understanding of what and why the options are
-            grouped together, for example, MOE
-        description:
-          type: string
-          description: description provides information about the option set
-      description: |-
-        Option sets provide a set of options that should be applied against schools
-        based on jusrisdiction and other such options.
-
-    schoolsOptionSetResponse:
-      type: object
-      properties:
-        optionSet:
-          "$ref": "#/components/schemas/schoolsOptionSet"
-        statusCode:
-          "$ref": "#/components/schemas/StatusCode"
-      description: |-
-        OptionSetResponse returns a option set resource, or informs the client of
-        the error.
-
     schoolsPhoneNumber:
       type: object
       properties:
@@ -5397,17 +6675,6 @@ components:
         See https://en.wikipedia.org/wiki/North_American_Numbering_Plan for more
         details.
 
-    schoolsRemoveOptionSetRequest:
-      type: object
-      properties:
-        schoolId:
-          type: string
-          description: schoolId specifies the school to remove the option set from.
-        optionSetId:
-          type: string
-          description: optionSetId specifies the option set to remove.
-      description: RemoveOptionSetRequest removes an option set from a school.
-
     schoolsSchool:
       type: object
       description: School is model of the resource that is persisted to a database
@@ -5416,12 +6683,12 @@ components:
           type: string
           description: id is the School's unique identifier.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -5529,48 +6796,6 @@ components:
           "$ref": "#/components/schemas/StatusCode"
       description: SchoolResponse returns a school resource, or informs the client of
         the error.
-
-    schoolsUpdateOptionGroupRequest:
-      type: object
-      properties:
-        optionGroupId:
-          type: string
-          description: optionGroupId is the specific option group to update on the server.
-        optionGroup:
-          "$ref": "#/components/schemas/schoolsOptionGroup"
-      description: UpdateOptionGroupRequest Updates an option group resource from the
-        server.
-
-    schoolsUpdateOptionHeadingRequest:
-      type: object
-      properties:
-        optionHeadingId:
-          type: string
-          description: The specific Option Heading to Update.
-        optionHeading:
-          "$ref": "#/components/schemas/schoolsOptionHeading"
-      description: UpdateOptionHeadingRequest Updates a option heading resource on the
-        server.
-
-    schoolsUpdateOptionRequest:
-      type: object
-      properties:
-        optionId:
-          type: string
-          description: optionId is the specific option to update on the server.
-        option:
-          "$ref": "#/components/schemas/schoolsOption"
-      description: UpdateOptionRequest Updates an option resource from the server.
-
-    schoolsUpdateOptionSetRequest:
-      type: object
-      properties:
-        optionSetId:
-          type: string
-          description: optionSetId is the specific option set to update on the server.
-        optionSet:
-          "$ref": "#/components/schemas/schoolsOptionSet"
-      description: UpdateOptionSetRequest Updates an option set resource from the server.
 
     schoolsUpdateSchoolRequest:
       type: object
