@@ -2897,10 +2897,10 @@ components:
             urn:hero:jurisdictions:intl:nz: Enables access to independant schools, which are not under any educational jurisdiction.
             # Service/Resource Level Scopes
             # Attendance Service
+            urn:hero:attendance:audits:read: Enables access to read attendance audit logs.
             urn:hero:attendance:records: Enables access to create, read and update attendance records.
             urn:hero:attendance:records:read: Enables access to read attendance records.
             urn:hero:attendance:records:delete: Enables access to delete attendance records.
-            urn:hero:attendance:audits:read: Enables access to read attendance audit logs.
             urn:hero:attendance:registers: Enables access to create, read and update group/class attendance registers.
             urn:hero:attendance:registers:read: Enables access to read group/class attendance registers.
             urn:hero:attendance:registers:delete: Enables access to delete group/class attendance registers.
@@ -2945,10 +2945,10 @@ components:
             urn:hero:jurisdictions:intl:nz: Enables access to independant schools, which are not under any educational jurisdiction.
             # Service/Resource Level Scopes
             # Attendance Service
+            urn:hero:attendance:audits:read: Enables access to read attendance audit logs.
             urn:hero:attendance:records: Enables access to create, read and update attendance records.
             urn:hero:attendance:records:read: Enables access to read attendance records.
             urn:hero:attendance:records:delete: Enables access to delete attendance records.
-            urn:hero:attendance:audits:read: Enables access to read attendance audit logs.
             urn:hero:attendance:registers: Enables access to create, read and update group/class attendance registers.
             urn:hero:attendance:registers:read: Enables access to read group/class attendance registers.
             urn:hero:attendance:registers:delete: Enables access to delete group/class attendance registers.
