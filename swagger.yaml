@@ -424,6 +424,11 @@ paths:
       operationId: CreateRecord
       summary: Create Record
       description: Creates a new attendance record for a student.
+      security:
+        - staging:
+          - urn:hero:attendance:records
+        - production:
+          - urn:hero:attendance:records
       tags:
         - Attendance
       requestBody:
