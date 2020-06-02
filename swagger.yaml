@@ -822,8 +822,9 @@ paths:
                 "$ref": "#/components/schemas/attendanceRegisterResponse"
 
     delete:
-      summary: DeleteRegister deletes the specified attendance register.
       operationId: DeleteRegister
+      summary: Delete Register
+      description: Removes the specified attendance register.
       security:
         - staging:
           - urn:hero:attendance:registers:delete
