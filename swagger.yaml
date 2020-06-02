@@ -2,7 +2,7 @@
 openapi: 3.0.2
 info:
   title: Hero for Developers
-  version: 0.2.4
+  version: 0.2.5
   x-logo:
     url: "./hero-logo.png"
     backgroundColor: "#FAFAFA"
@@ -424,6 +424,11 @@ paths:
       operationId: CreateRecord
       summary: Create Record
       description: Creates a new attendance record for a student.
+      security:
+        - staging:
+          - urn:hero:attendance:records
+        - production:
+          - urn:hero:attendance:records
       tags:
         - Attendance
       requestBody:
@@ -817,8 +822,9 @@ paths:
                 "$ref": "#/components/schemas/attendanceRegisterResponse"
 
     delete:
-      summary: DeleteRegister deletes the specified attendance register.
       operationId: DeleteRegister
+      summary: Delete Register
+      description: Removes the specified attendance register.
       security:
         - staging:
           - urn:hero:attendance:registers:delete
@@ -2891,10 +2897,10 @@ components:
             urn:hero:jurisdictions:intl:nz: Enables access to independant schools, which are not under any educational jurisdiction.
             # Service/Resource Level Scopes
             # Attendance Service
+            urn:hero:attendance:audits:read: Enables access to read attendance audit logs.
             urn:hero:attendance:records: Enables access to create, read and update attendance records.
             urn:hero:attendance:records:read: Enables access to read attendance records.
             urn:hero:attendance:records:delete: Enables access to delete attendance records.
-            urn:hero:attendance:audits:read: Enables access to read attendance audit logs.
             urn:hero:attendance:registers: Enables access to create, read and update group/class attendance registers.
             urn:hero:attendance:registers:read: Enables access to read group/class attendance registers.
             urn:hero:attendance:registers:delete: Enables access to delete group/class attendance registers.
@@ -2939,10 +2945,10 @@ components:
             urn:hero:jurisdictions:intl:nz: Enables access to independant schools, which are not under any educational jurisdiction.
             # Service/Resource Level Scopes
             # Attendance Service
+            urn:hero:attendance:audits:read: Enables access to read attendance audit logs.
             urn:hero:attendance:records: Enables access to create, read and update attendance records.
             urn:hero:attendance:records:read: Enables access to read attendance records.
             urn:hero:attendance:records:delete: Enables access to delete attendance records.
-            urn:hero:attendance:audits:read: Enables access to read attendance audit logs.
             urn:hero:attendance:registers: Enables access to create, read and update group/class attendance registers.
             urn:hero:attendance:registers:read: Enables access to read group/class attendance registers.
             urn:hero:attendance:registers:delete: Enables access to delete group/class attendance registers.
