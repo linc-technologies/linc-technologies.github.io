@@ -6730,6 +6730,10 @@ components:
           "$ref": "#/components/schemas/schoolsAddress"
         jurisdiction:
           "$ref": "#/components/schemas/Jurisdiction"
+        allowedJurisdictions:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Jurisdiction"
         jurisdictionalId:
           type: string
           description: |-
