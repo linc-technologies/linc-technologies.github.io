@@ -5874,6 +5874,8 @@ components:
         - 1
         - 2
         - 3
+        - 4
+        - 5
       default: 0
       description: |-
         Feature contains specific features that can be enabled for a given school,
@@ -5886,6 +5888,9 @@ components:
           functionality, including Enrolments and Attendance.
         - Feature_PUPIL_BILLING (3) Pupil Billing enables finance (pupil billing)
           functionality.
+        - Feature_PREMIER (4) Hero Premier enables "Premier" features.
+        - Feature_MULTI_JURISDICTION (5) enables support for schools that enrol
+          students from multiple educational jurisdictions.
 
     schoolsISO2CountryCode:
       type: integer
