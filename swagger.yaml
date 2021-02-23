@@ -25,6 +25,9 @@ tags:
     description: |
       audits, records, registers, analyses, nz moe learner summaries and nz
       moe day calculations.
+  - name: Dates
+    description: |
+      School Dates and Terms.
   - name: Enrolments
     description: |
       Applications to Enrol.
@@ -38,6 +41,9 @@ tags:
   - name: Schools
     description: |
       Schools and School Options.
+  - name: Timetable
+    description: |
+      School Timetable Weekly Structures and Class Periods.
 
 paths:
   "/attendance/v4/analyses":
@@ -84,8 +90,8 @@ paths:
           in: query
           required: false
           schema:
-            format: date
             type: string
+            format: date
         - name: dateTo
           description: |-
             dateTo allows an analysis to be performed within a specified date range,
@@ -93,8 +99,8 @@ paths:
           in: query
           required: false
           schema:
-            format: date
             type: string
+            format: date
         - name: personIds
           description: personIds is used internally to perform a groupId filter.
           in: query
@@ -123,9 +129,9 @@ paths:
         attendance audit records.
       security:
         - staging:
-            - urn:hero:attendance:audits:read
+          - urn:hero:attendance:audits:read
         - production:
-            - urn:hero:attendance:audits:read
+          - urn:hero:attendance:audits:read
       tags:
         - Attendance
       parameters:
@@ -135,8 +141,8 @@ paths:
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: recordId
           description: |
             recordId enables filtering attendance audit records by attendance
@@ -144,8 +150,8 @@ paths:
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: dateFrom
           description: |-
             dateFrom enables filtering attendance audit records from a
@@ -153,8 +159,8 @@ paths:
           in: query
           required: false
           schema:
-            format: date
             type: string
+            format: date
         - name: dateTo
           description: |
             dateTo enables filtering attendance audit records to a specified
@@ -162,8 +168,8 @@ paths:
           in: query
           required: false
           schema:
-            format: date
             type: string
+            format: date
       responses:
         '200':
           description: A successful response.
@@ -194,22 +200,22 @@ paths:
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: campusId
           description: campusId enables filtering attendance summaries by school campus.
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: personId
           description: personId enables filtering attendance summaries by student.
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
       responses:
         '200':
           description: A successful response.
@@ -240,44 +246,44 @@ paths:
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: dateId
           description: dateId enables filtering NzMoeDay records by a date.
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: campusId
           description: campusId enables filtering NzMoeDay records by a school campus.
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: personId
           description: personId enables filtering NzMoeDay records by a person.
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: dateFrom
-          description: dateFrom enables filtering NzMoeDay records from a specified
-            date.
+          description: |-
+            dateFrom enables filtering NzMoeDay records from a specified date.
           in: query
           required: false
           schema:
-            format: date
             type: string
+            format: date
         - name: dateTo
           description: dateTo enables filtering NzMoeDay records to a specified date.
           in: query
           required: false
           schema:
-            format: date
             type: string
+            format: date
         - name: groupId
           description: |-
             groupId enables filtering NzMoeDay records for students who are
@@ -285,8 +291,8 @@ paths:
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: personIds
           description: personIds enables filtering for a list of students.
           in: query
@@ -329,39 +335,39 @@ paths:
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: dateId
           description: dateId enables filtering attendance records by a date.
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: campusId
           description: |
             campusId enables filtering attendance records by a school campus.
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: personId
           description: |
             personId enables filtering attendance records by a person.
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: periodId
           description: |
             periodId enables filtering attendance records by a period.
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: dateFrom
           description: |
             dateFrom enables filtering attendance records from a specified
@@ -369,16 +375,16 @@ paths:
           in: query
           required: false
           schema:
-            format: date
             type: string
+            format: date
         - name: dateTo
           description: |
             dateTo enables filtering attendance records to a specified date.
           in: query
           required: false
           schema:
-            format: date
             type: string
+            format: date
         - name: groupId
           description: |-
             groupId enables filtering attendance records for students who are
@@ -386,14 +392,15 @@ paths:
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: personIds
           description: |-
             personIds enables filtering for a list of students.
             Note: Used internally by groupId filter. Therefore only supply
             either a group ID, or personIDs.
-            Any presented personIds will be overwritten by group member personIds.
+            Any presented personIds will be overwritten by group member
+            personIds.
           in: query
           required: false
           content:
@@ -410,8 +417,8 @@ paths:
           in: query
           required: false
           schema:
-            format: boolean
             type: boolean
+            format: boolean
       responses:
         '200':
           description: A successful response.
@@ -466,7 +473,7 @@ paths:
         content:
           application/json:
             schema:
-                "$ref": "#/components/schemas/attendanceBulkCreateRecordsRequest"
+              "$ref": "#/components/schemas/attendanceBulkCreateRecordsRequest"
       responses:
         '200':
           description: A successful response.
@@ -527,8 +534,8 @@ paths:
           in: path
           required: true
           schema:
-            format: uuid
             type: string
+            format: uuid
       responses:
         '200':
           description: A successful response.
@@ -557,8 +564,8 @@ paths:
           in: path
           required: true
           schema:
-            format: uuid
             type: string
+            format: uuid
       requestBody:
         required: true
         content:
@@ -592,8 +599,8 @@ paths:
           in: path
           required: true
           schema:
-            format: uuid
             type: string
+            format: uuid
       responses:
         '200':
           description: A successful response.
@@ -626,16 +633,16 @@ paths:
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: dateId
           description: |
             dateId enables filtering group attendance register records by date.
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: campusId
           description: |-
             campusId enables filtering group attendance register records by a
@@ -643,8 +650,8 @@ paths:
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: groupId
           description: |
             groupId enables filtering group attendance register records by a
@@ -652,8 +659,8 @@ paths:
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: dateFrom
           description: |-
             dateFrom enables filtering group attendance register records from a
@@ -661,8 +668,8 @@ paths:
           in: query
           required: false
           schema:
-            format: date
             type: string
+            format: date
         - name: dateTo
           description: |-
             dateTo enables filtering group attendance register records to a
@@ -670,8 +677,8 @@ paths:
           in: query
           required: false
           schema:
-            format: date
             type: string
+            format: date
         - name: periodId
           description: |
             periodId enables filtering group attendance register records by a
@@ -679,8 +686,8 @@ paths:
           in: query
           required: false
           schema:
-            format: uuid
             type: string
+            format: uuid
         - name: include
           description: |-
             Include enables returning related records by providing a comma
@@ -775,8 +782,8 @@ paths:
           in: path
           required: true
           schema:
-            format: uuid
             type: string
+            format: uuid
       responses:
         '200':
           description: A successful response.
@@ -805,8 +812,8 @@ paths:
           in: path
           required: true
           schema:
-            format: uuid
             type: string
+            format: uuid
       requestBody:
         required: true
         content:
@@ -840,8 +847,8 @@ paths:
           in: path
           required: true
           schema:
-            format: uuid
             type: string
+            format: uuid
       responses:
         '200':
           description: A successful response.
@@ -849,6 +856,249 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Empty"
+
+  "/dates/v4/dates":
+    get:
+      operationId: ListDates
+      summary: List Dates
+      description: Lists school dates, and enables filtering resources.
+      security:
+        - development:
+          - urn:hero:dates:dates
+          - urn:hero:dates:dates:read
+        - staging:
+          - urn:hero:dates:dates
+          - urn:hero:dates:dates:read
+        - production:
+          - urn:hero:dates:dates
+          - urn:hero:dates:dates:read
+      tags:
+        - Dates
+      parameters:
+        - name: schoolId
+          description: schoolId enables filtering dates by a school.
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: year
+          description: year enables filtering dates by a year.
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: date
+          description: |
+            date enables filtering for a specific date record in in ISO 8601
+            format (YYYY-MM-DD).
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/datesListDatesResponse"
+
+    post:
+      operationId: CreateDate
+      summary: Create Date
+      description: Creates a date resource.
+      security:
+        - development:
+          - urn:hero:dates:dates
+        - staging:
+          - urn:hero:dates:dates
+        - production:
+          - urn:hero:dates:dates
+      tags:
+        - Dates
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            "$ref": "#/components/schemas/datesCreateDateRequest"
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/datesDateResponse"
+
+  "/dates/v4/dates/{dateId}":
+    get:
+      operationId: GetDate
+      summary: Get Date
+      description: Gets the specified date resource.
+      security:
+        - development:
+          - urn:hero:dates:dates
+          - urn:hero:dates:dates:read
+        - staging:
+          - urn:hero:dates:dates
+          - urn:hero:dates:dates:read
+        - production:
+          - urn:hero:dates:dates
+          - urn:hero:dates:dates:read
+      tags:
+        - Dates
+      parameters:
+        - name: dateId
+          description: |-
+            dateId is the unique date resource to get from the server.
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/datesDateResponse"
+
+    put:
+      operationId: UpdateDate
+      summary: Update Date
+      description: Updates the specified date resource.
+      security:
+        - development:
+          - urn:hero:dates:dates
+        - staging:
+          - urn:hero:dates:dates
+        - production:
+          - urn:hero:dates:dates
+      tags:
+        - Dates
+      parameters:
+        - name: dateId
+          description: |-
+            dateId is the unique identifier of the date resource to update on
+            the server.
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: body
+          in: body
+          required: true
+          schema:
+            "$ref": "#/components/schemas/datesUpdateDateRequest"
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/datesDateResponse"
+
+    delete:
+      operationId: DeleteDate
+      summary: Delete Date
+      description: Deletes the specified date resource.
+      security:
+        - development:
+          - urn:hero:dates:dates:delete
+        - staging:
+          - urn:hero:dates:dates:delete
+        - production:
+          - urn:hero:dates:dates:delete
+      tags:
+        - Dates
+      parameters:
+        - name: dateId
+          description: |-
+            dateId is the unique date resource to delete from the server.
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Empty"
+
+  "/dates/v4/dates/:bulk":
+    post:
+      operationId: BulkCreateDates
+      summary: Bulk Create Dates
+      description: |-
+        Combines what would be multiple calls of the same operation to create
+        many date resources. It optimises this process by enabling a client to
+        send a single bulk create dates request instead, which contains an
+        array of dates to create.
+      security:
+        - development:
+          - urn:hero:dates:dates
+        - staging:
+          - urn:hero:dates:dates
+        - production:
+          - urn:hero:dates:dates
+      tags:
+        - Dates
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            "$ref": "#/components/schemas/datesBulkCreateDatesRequest"
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Empty"
+
+  "/dates/v4/terms":
+    get:
+      operationId: ListTerms
+      summary: List Terms
+      description: |-
+        Lists school terms with start/end dates for a school and enables
+        filtering resources.
+      security:
+        - development:
+          - urn:hero:dates:dates
+          - urn:hero:dates:dates:read
+        - staging:
+          - urn:hero:dates:dates
+          - urn:hero:dates:dates:read
+        - production:
+          - urn:hero:dates:dates
+          - urn:hero:dates:dates:read
+      tags:
+        - Dates
+      parameters:
+        - name: schoolId
+          description: schoolId enables filtering terms by a school.
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/datesListTermsResponse"
 
   "/enrolments/v4/applications":
     get:
@@ -876,7 +1126,8 @@ paths:
             format: uuid
         - name: campusId
           description: |-
-            campusId enables filtering enrolment applications based on school Campus'.
+            campusId enables filtering enrolment applications based on school
+            Campus'.
           in: query
           required: false
           schema:
@@ -893,8 +1144,8 @@ paths:
             maxLength: 2
         - name: schoolCode
           description: |-
-            schoolCode is a school identifier as given by a state based educational
-            body.
+            schoolCode is a school identifier as given by a state based
+            educational body.
             For example, the Ministry of Education's School Codes - 335.
           in: query
           required: false
@@ -910,7 +1161,8 @@ paths:
             type: string
         - name: enrolmentYear
           description: |-
-            enrolmentYear is the year in which the application was handed in for.
+            enrolmentYear is the year in which the application was handed in
+            for.
             For example, 2018.
           in: query
           required: false
@@ -918,14 +1170,17 @@ paths:
             type: integer
             format: int32
         - name: authorId
-          description: authorId enables filtering enrolment applications based on the author.
+          description: |-
+            authorId enables filtering enrolment applications based on the
+            author.
           in: query
           required: false
           schema:
             type: string
             format: uuid
         - name: personId
-          description: personId enables filtering enrolment applications based on person.
+          description: |-
+            personId enables filtering enrolment applications based on person.
           in: query
           required: false
           schema:
@@ -983,8 +1238,8 @@ paths:
       parameters:
         - name: applicationId
           description: |-
-            applicationId is the unique identifier of the Enrolment Application to
-            get from the server.
+            applicationId is the unique identifier of the Enrolment Application
+            to get from the server.
           in: path
           required: true
           schema:
@@ -1012,8 +1267,8 @@ paths:
       parameters:
         - name: applicationId
           description: |-
-            applicationId is the unique identifier of the Enrolment Application to
-            get from the server.
+            applicationId is the unique identifier of the Enrolment Application
+            to get from the server.
           in: path
           required: true
           schema:
@@ -1052,14 +1307,16 @@ paths:
             type: string
             maxLength: 2
         - name: schoolId
-          description: schoolId is the unique identifier of the school obtaining.
+          description: |-
+            schoolId is the unique identifier of the school obtaining.
           in: query
           required: false
           schema:
             type: string
             format: uuid
         - name: schoolCode
-          description: schoolCode is the code issued by an educational authority.
+          description: |-
+            schoolCode is the code issued by an educational authority.
           in: query
           required: false
           schema:
@@ -1131,8 +1388,8 @@ paths:
       parameters:
         - name: schemaId
           description: |-
-            schemaId is the unique identifier of the Enrolment Schema to get from
-            the server
+            schemaId is the unique identifier of the Enrolment Schema to get
+            from the server
           in: path
           required: true
           schema:
@@ -1160,8 +1417,8 @@ paths:
       parameters:
         - name: schemaId
           description: |-
-            schemaId is the unique identifier of the Enrolment Schema resource on
-            the server.
+            schemaId is the unique identifier of the Enrolment Schema resource
+            on the server.
           in: path
           required: true
           schema:
@@ -1195,8 +1452,8 @@ paths:
       parameters:
         - name: schemaId
           description: |-
-            schemaId is the unique identifier of the Enrolment Schema resource on
-            the server.
+            schemaId is the unique identifier of the Enrolment Schema resource
+            on the server.
           in: path
           required: true
           schema:
@@ -1313,7 +1570,8 @@ paths:
           schema:
             type: string
         - name: learners
-          description: learners enables filtering groups based on a list of learners.
+          description: |-
+            learners enables filtering groups based on a list of learners.
           in: query
           required: false
           content:
@@ -1506,14 +1764,17 @@ paths:
             type: string
             format: uuid
         - name: dateFrom
-          description: dateFrom enables filtering audit resources from a specified date.
+          description: |
+            dateFrom enables filtering audit resources from a specified date in
+            ISO 8601 format (YYYY-MM-DD).
           in: query
           required: false
           schema:
             type: string
             format: date
         - name: dateTo
-          description: dateTo enables filtering audit resources to a specified date.
+          description: dateTo enables filtering audit resources to a specified
+            date in ISO 8601 format (YYYY-MM-DD).
           in: query
           required: false
           schema:
@@ -1851,12 +2112,13 @@ paths:
         - People
       parameters:
         - name: enrolmentId
-          description: enrolmentId is the unique enrolment resource to get from the
-            server.
+          description: |-
+            enrolmentId is the unique enrolment resource to get from the server.
           in: path
           required: true
           schema:
             type: string
+            format: uuid
       responses:
         '200':
           description: A successful response.
@@ -1878,7 +2140,8 @@ paths:
         - People
       parameters:
         - name: enrolmentId
-          description: enrolmentId is the unique enrolment resource to update on the
+          description: |-
+            enrolmentId is the unique enrolment resource to update on the
             server.
           in: path
           required: true
@@ -1907,9 +2170,9 @@ paths:
         Bulk updates Learners' homerooms, one homeroom group at a time.
       security:
         - staging:
-            - urn:hero:people:people
+          - urn:hero:people:people
         - production:
-            - urn:hero:people:people
+          - urn:hero:people:people
       tags:
         - People
       requestBody:
@@ -2248,6 +2511,7 @@ paths:
           required: false
           schema:
             type: string
+            format: uuid
       responses:
         '200':
           description: A successful response.
@@ -2375,7 +2639,9 @@ paths:
     get:
       operationId: ListAccessRequests
       summary: List Access Requests
-      description: Lists all pending access requests resources and enables filtering resources.
+      description: |-
+        Lists all pending access requests resources and enables filtering
+        resources.
       security:
         - staging:
           - urn:hero:people:requests
@@ -2442,16 +2708,16 @@ paths:
 
   "/people/v4/requests/{requestId}":
     get:
+      operationId: GetAccessRequest
       summary: Get Access Request
       description: Gets the specified access request resource.
-      operationId: GetAccessRequest
       security:
         - staging:
-            - urn:hero:people:requests
-            - urn:hero:people:requests:read
+          - urn:hero:people:requests
+          - urn:hero:people:requests:read
         - production:
-            - urn:hero:people:requests
-            - urn:hero:people:requests:read
+          - urn:hero:people:requests
+          - urn:hero:people:requests:read
       tags:
         - People
       parameters:
@@ -2529,20 +2795,22 @@ paths:
       description: Gets the specified option group schema resource.
       security:
         - staging:
-            - urn:hero:schools:schools
-            - urn:hero:schools:schools:read
+          - urn:hero:schools:schools
+          - urn:hero:schools:schools:read
         - production:
-            - urn:hero:schools:schools
-            - urn:hero:schools:schools:read
+          - urn:hero:schools:schools
+          - urn:hero:schools:schools:read
       tags:
         - Schools
       parameters:
         - name: optionGroupId
-          description: optionGroupId is the specific option group to get from the server.
+          description: |-
+            optionGroupId is the specific option group to get from the server.
           in: path
           required: true
           schema:
             type: string
+            format: uuid
       responses:
         '200':
           description: A successful response.
@@ -2555,7 +2823,9 @@ paths:
     get:
       operationId: ListOptionHeadings
       summary: List Option Headings
-      description: Lists school option heading schema resources and enables filtering resources.
+      description: |-
+        Lists school option heading schema resources and enables filtering
+        resources.
       security:
         - staging:
           - urn:hero:schools:schools
@@ -2567,11 +2837,13 @@ paths:
         - Schools
       parameters:
         - name: optionGroupId
-          description: optionGroupId filters option headings based on an option group.
+          description: |-
+            optionGroupId filters option headings based on an option group.
           in: query
           required: false
           schema:
             type: string
+            format: uuid
       responses:
         '200':
           description: A successful response.
@@ -2592,13 +2864,8 @@ paths:
         - production:
           - urn:hero:schools:schools
           - urn:hero:schools:schools:read
-      responses:
-        '200':
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/schoolsOptionHeadingResponse"
+      tags:
+        - Schools
       parameters:
         - name: optionHeadingId
           description: The specific option heading to get.
@@ -2606,8 +2873,14 @@ paths:
           required: true
           schema:
             type: string
-      tags:
-        - Schools
+            format: uuid
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/schoolsOptionHeadingResponse"
 
   "/schools/v4/schema/options":
     get:
@@ -2623,13 +2896,6 @@ paths:
           - urn:hero:schools:schools:read
       tags:
         - Schools
-      responses:
-        '200':
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/schoolsListOptionsResponse"
       parameters:
         - name: optionGroupId
           description: optionGroupId enables filtering options by option group.
@@ -2637,12 +2903,15 @@ paths:
           required: false
           schema:
             type: string
+            format: uuid
         - name: optionHeadingId
-          description: optionHeadingId enables filtering options by option heading.
+          description: |-
+            optionHeadingId enables filtering options by option heading.
           in: query
           required: false
           schema:
             type: string
+            format: uuid
         - name: optionSetIds
           description: |
             optionSetIds enables filtering options by option sets. This should
@@ -2657,6 +2926,13 @@ paths:
                 items:
                   type: string
                   format: uuid
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/schoolsListOptionsResponse"
 
   "/schools/v4/schema/options/{optionId}":
     get:
@@ -2670,13 +2946,8 @@ paths:
         - production:
           - urn:hero:schools:schools
           - urn:hero:schools:schools:read
-      responses:
-        '200':
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/schoolsOptionResponse"
+      tags:
+        - Schools
       parameters:
         - name: optionId
           description: optionId is the specific option to get from the server.
@@ -2684,8 +2955,14 @@ paths:
           required: true
           schema:
             type: string
-      tags:
-        - Schools
+            format: uuid
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/schoolsOptionResponse"
 
   "/schools/v4/schools":
     get:
@@ -2694,18 +2971,13 @@ paths:
       description: Lists all school resources and enables filtering resources.
       security:
         - staging:
-            - urn:hero:schools:schools
-            - urn:hero:schools:schools:read
+          - urn:hero:schools:schools
+          - urn:hero:schools:schools:read
         - production:
-            - urn:hero:schools:schools
-            - urn:hero:schools:schools:read
-      responses:
-        '200':
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/schoolsListSchoolsResponse"
+          - urn:hero:schools:schools
+          - urn:hero:schools:schools:read
+      tags:
+        - Schools
       parameters:
         - name: schoolId
           description: schoolId enables filtering by school.
@@ -2713,10 +2985,10 @@ paths:
           required: false
           schema:
             type: string
+            format: uuid
         - name: schoolIds
           description: |-
             schoolIds enables retrieval of a list of specific schools.
-            Mostly used internally.
           in: query
           required: false
           content:
@@ -2732,7 +3004,8 @@ paths:
           schema:
             "$ref": "#/components/schemas/Jurisdiction"
         - name: jurisdictionalId
-          description: jurisdictionalId enables filtering schools by their jurisdictional
+          description: |-
+            jurisdictionalId enables filtering schools by their jurisdictional
             id.
           in: query
           required: false
@@ -2745,8 +3018,13 @@ paths:
           schema:
             type: boolean
             format: boolean
-      tags:
-        - Schools
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/schoolsListSchoolsResponse"
 
   "/schools/v4/schools/{schoolId}":
     get:
@@ -2755,11 +3033,11 @@ paths:
       description: Gets the specified School.
       security:
         - staging:
-            - urn:hero:schools:schools
-            - urn:hero:schools:schools:read
+          - urn:hero:schools:schools
+          - urn:hero:schools:schools:read
         - production:
-            - urn:hero:schools:schools
-            - urn:hero:schools:schools:read
+          - urn:hero:schools:schools
+          - urn:hero:schools:schools:read
       tags:
         - Schools
       parameters:
@@ -2769,12 +3047,14 @@ paths:
           required: true
           schema:
             type: string
+            format: uuid
         - name: metaOnly
           description: metaOnly enables retrieval of only basic school data.
           in: query
           required: false
           schema:
             type: boolean
+            format: boolean
         - name: jurisdiction
           in: query
           required: false
@@ -2797,13 +3077,8 @@ paths:
           - urn:hero:schools:schools
         - production:
           - urn:hero:schools:schools
-      responses:
-        '200':
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/schoolsSchoolResponse"
+      tags:
+        - Schools
       parameters:
         - name: schoolId
           description: The specific School to Update.
@@ -2811,14 +3086,20 @@ paths:
           required: true
           schema:
             type: string
+            format: uuid
       requestBody:
         required: true
         content:
           application/json:
             schema:
               "$ref": "#/components/schemas/schoolsUpdateSchoolRequest"
-      tags:
-        - Schools
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/schoolsSchoolResponse"
 
     delete:
       operationId: DeleteSchool
@@ -2826,16 +3107,11 @@ paths:
       description: Deletes the specified school resource.
       security:
         - staging:
-            - urn:hero:schools:schools:delete
+          - urn:hero:schools:schools:delete
         - production:
-            - urn:hero:schools:schools:delete
-      responses:
-        '200':
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/Empty"
+          - urn:hero:schools:schools:delete
+      tags:
+        - Schools
       parameters:
         - name: schoolId
           description: The specific School to delete.
@@ -2843,8 +3119,14 @@ paths:
           required: true
           schema:
             type: string
-      tags:
-        - Schools
+            format: uuid
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Empty"
 
   "/schools/v4/schools/{schoolId}/options":
     get:
@@ -2862,14 +3144,8 @@ paths:
         - production:
           - urn:hero:schools:schools
           - urn:hero:schools:schools:read
-      operationId: ListSchoolOptions
-      responses:
-        '200':
-          description: A successful response.
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/schoolsSchoolOptionsResponse"
+      tags:
+        - Schools
       parameters:
         - name: schoolId
           description: The specific School to get school options for.
@@ -2877,8 +3153,300 @@ paths:
           required: true
           schema:
             type: string
+            format: uuid
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/schoolsSchoolOptionsResponse"
+
+  "/timetable/v4/periods":
+    get:
+      operationId: ListPeriods
+      summary: List Periods
+      description: |-
+        Lists timetabled period resources and enables filtering resources.
+      security:
+        - development:
+          - urn:hero:timetable:periods
+          - urn:hero:timetable:periods:read
+        - staging:
+          - urn:hero:timetable:periods
+          - urn:hero:timetable:periods:read
+        - production:
+          - urn:hero:timetable:periods
+          - urn:hero:timetable:periods:read
       tags:
-        - Schools
+        - Timetable
+      parameters:
+        - name: schoolId
+          description: schoolId enables filtering periods by a school.
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: campusId
+          description: campusId enables filtering periods by a school campus.
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: structureId
+          description: |-
+            structureId enables filtering periods by a timetable structure.
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/timetableListPeriodsResponse"
+
+    post:
+      operationId: CreatePeriod
+      summary: Create Period
+      description: Creates a period resource.
+      security:
+        - development:
+          - urn:hero:timetable:periods
+        - staging:
+          - urn:hero:timetable:periods
+        - production:
+          - urn:hero:timetable:periods
+      tags:
+        - Timetable
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            "$ref": "#/components/schemas/timetableCreatePeriodRequest"
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/timetablePeriodResponse"
+
+  "/timetable/v4/periods/{periodId}":
+    get:
+      operationId: GetPeriod
+      summary: Get Period
+      description: Gets the specified period resource.
+      security:
+        - development:
+          - urn:hero:timetable:periods
+          - urn:hero:timetable:periods:read
+        - staging:
+          - urn:hero:timetable:periods
+          - urn:hero:timetable:periods:read
+        - production:
+          - urn:hero:timetable:periods
+          - urn:hero:timetable:periods:read
+      tags:
+        - Timetable
+      parameters:
+        - name: periodId
+          description: |-
+            periodId is the unique period resource to get from the server.
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/timetablePeriodResponse"
+
+  "/timetable/v4/structures":
+    get:
+      operationId: ListStructures
+      summary: List Structures
+      description: |-
+        Lists timetable structure resources and enables filtering resources.
+
+        A structure defines a weekly structure of days and linked periods for
+        a given day.
+
+        Using the timetable information, you can query to find out on a given
+        date what timetable structure is the current one to use.
+
+        To discover what school period the school is currently in, you will
+        need to calculate this manually using your own time libraries, working
+        out the current ISO day number to drill into the correct day within the
+        timetable strucure. From here, iterate over the period ids
+        (which are ordered), to calculate if `time.Now()` is within said period
+        based on the time the period starts and the duration of said period.
+      security:
+        - development:
+          - urn:hero:timetable:structures
+          - urn:hero:timetable:structures:read
+        - staging:
+          - urn:hero:timetable:structures
+          - urn:hero:timetable:structures:read
+        - production:
+          - urn:hero:timetable:structures
+          - urn:hero:timetable:structures:read
+      tags:
+        - Timetable
+      parameters:
+        - name: schoolId
+          description: |-
+            schoolId enables filtering timetable structures by a school.
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: campusId
+          description: |-
+            campusId enables filtering timetable structures by a school campus.
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: archived
+          description: |-
+            archived enables filtering for archived timetable structures.
+          in: query
+          required: false
+          schema:
+            type: boolean
+            format: boolean
+        - name: date
+          description: |-
+            date enables filtering timetable structures by a given date in ISO
+            8601 format (YYYY-MM-DD).
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: include
+          description: |-
+            include enables expanding linked resources in a top level key
+            within the list response to help minimise API request traffic via a
+            comma delimited list of pluralised forms e.g. `periods`.
+          in: query
+          required: false
+          schema:
+             type: string
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/timetableListStructuresResponse"
+
+    post:
+      operationId: CreateStructure
+      summary: Create Structure
+      description: Creates a timetable structure resource.
+      security:
+        - development:
+          - urn:hero:timetable:structures
+        - staging:
+          - urn:hero:timetable:structures
+        - production:
+          - urn:hero:timetable:structures
+      tags:
+        - Timetable
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            "$ref": "#/components/schemas/timetableCreateStructureRequest"
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/timetableStructureResponse"
+
+  "/timetable/v4/structures/{structureId}":
+    get:
+      operationId: GetStructure
+      summary: Get Structure
+      description: Gets the specified timetable structure resource.
+      security:
+        - development:
+          - urn:hero:timetable:structures
+          - urn:hero:timetable:structures:read
+        - staging:
+          - urn:hero:timetable:structures
+          - urn:hero:timetable:structures:read
+        - production:
+          - urn:hero:timetable:structures
+          - urn:hero:timetable:structures:read
+      tags:
+        - Timetable
+      parameters:
+        - name: structureId
+          description: |-
+            structureId is the unique structure resource to get from the
+            server.
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/timetableStructureResponse"
+
+  "/timetable/v4/structures/{structureId}/:archive":
+    post:
+      operationId: ArchiveStructure
+      summary: Archive Structure
+      description: Marks the specified timetable structure resource as archived.
+      security:
+        - development:
+          - urn:hero:timetable:structures:archive
+        - staging:
+          - urn:hero:timetable:structures:archive
+        - production:
+          - urn:hero:timetable:structures:archive
+      tags:
+        - Timetable
+      parameters:
+        - name: structureId
+          description: |-
+            structureId is the unique structure resource to archive on the
+            server.
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Empty"
 
 components:
   securitySchemes:
@@ -2911,6 +3479,10 @@ components:
             urn:hero:auth:users: Enables access to create, read and update oauth users.
             urn:hero:auth:users:read: Enables access to read oauth users.
             urn:hero:auth:users:delete: Enables access to delete oauth users.
+            # Dates Service
+            urn:hero:dates:dates: Enables access to create, read and update school dates.
+            urn:hero:dates:dates:read: Enables access to read school dates.
+            urn:hero:dates:dates:delete: Enables access to delete school dates.
             # Groups Service
             urn:hero:groups:groups: Enables access to create, read and update groups.
             urn:hero:groups:groups:read: Enables access to read groups.
@@ -2929,6 +3501,12 @@ components:
             urn:hero:schools:schools: Enables access to create, read and update schools.
             urn:hero:schools:schools:read: Enables access to read schools.
             urn:hero:schools:schools:delete: Enables access to delete schools.
+            # Timetable Service
+            urn:hero:timetable:periods: Enables access to create and read school periods.
+            urn:hero:timetable:periods:read: Enables access to read school periods.
+            urn:hero:timetable:structures: Enables access to create and read school timetable structures.
+            urn:hero:timetable:structures:read: Enables access to read school timetable structures.
+            urn:hero:timetable:structures:archive: Enables access to archive school timetable structures.
 
     production:
       type: oauth2
@@ -2959,6 +3537,10 @@ components:
             urn:hero:auth:users: Enables access to create, read and update oauth users.
             urn:hero:auth:users:read: Enables access to read oauth users.
             urn:hero:auth:users:delete: Enables access to delete oauth users.
+            # Dates Service
+            urn:hero:dates:dates: Enables access to create, read and update school dates.
+            urn:hero:dates:dates:read: Enables access to read school dates.
+            urn:hero:dates:dates:delete: Enables access to delete school dates.
             # Groups Service
             urn:hero:groups:groups: Enables access to create, read and update groups.
             urn:hero:groups:groups:read: Enables access to read groups.
@@ -2977,6 +3559,12 @@ components:
             urn:hero:schools:schools: Enables access to create, read and update schools.
             urn:hero:schools:schools:read: Enables access to read schools.
             urn:hero:schools:schools:delete: Enables access to delete schools.
+            # Timetable Service
+            urn:hero:timetable:periods: Enables access to create and read school periods.
+            urn:hero:timetable:periods:read: Enables access to read school periods.
+            urn:hero:timetable:structures: Enables access to create and read school timetable structures.
+            urn:hero:timetable:structures:read: Enables access to read school timetable structures.
+            urn:hero:timetable:structures:archive: Enables access to archive school timetable structures.
 
   schemas:
     # Shared Schemas
@@ -3906,6 +4494,7 @@ components:
       properties:
         id:
           type: string
+          format: uuid
           description: id is the attendance record's unique identifier.
         createTime:
           type: integer
@@ -3922,12 +4511,13 @@ components:
         schoolId:
           type: string
           format: uuid
-          description: |
+          description: |-
             schoolId is the school the attendance record is assigned to.
         campusId:
           type: string
           format: uuid
-          description: campusId is the school campus the attendance record is assigned
+          description: |-
+            campusId is the school campus the attendance record is assigned
             to.
         dateId:
           type: string
@@ -3936,7 +4526,8 @@ components:
         periodId:
           type: string
           format: uuid
-          description: periodId is the schooling class period the attendance is assigned
+          description: |-
+            periodId is the schooling class period the attendance is assigned
             to.
         authorId:
           type: string
@@ -3948,14 +4539,15 @@ components:
           type: string
           format: uuid
           description: |-
-            personId  the unique identifier of the person who this attendance record
-            is for.
+            personId is the unique identifier of the person who this attendance
+            record is for.
         homeroomId:
           type: string
           format: uuid
           description: |-
             homeroomId is the unique identifier of the student's current
             homeroom, for generating accurate historical reports.
+            Links to a Hero group.
         date:
           type: string
           format: date
@@ -4122,6 +4714,170 @@ components:
             records contains a list of attendance records to replace the
             resources stored on the server.
 
+    datesBulkCreateDatesRequest:
+      type: object
+      description: |-
+        BulkCreateDatesRequest contains the request required to create multiple
+        dates in a single request.
+      properties:
+        dates:
+          type: array
+          description: dates contains a list of dates to create on the server.
+          items:
+            "$ref": "#/components/schemas/datesDate"
+
+    datesCreateDateRequest:
+      type: object
+      description: |-
+        CreateDateRequest contains the request required to create a date
+        resource on the server.
+      properties:
+        date:
+          "$ref": "#/components/schemas/datesDate"
+
+    datesDate:
+      type: object
+      description: Date provides structured information about a school date.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: id is the unique identifier of the school's date record.
+        createTime:
+          type: integer
+          format: int64
+          description: |-
+            createTime is when the resource was created in seconds from the
+            epoch.
+        updateTime:
+          type: integer
+          format: int64
+          description: |-
+            updateTime is the last time the resource was modified in seconds
+            from the epoch.
+        schoolId:
+          type: string
+          format: uuid
+          description: |-
+            schoolId is the unique identifier of the school who created the
+            date.
+        date:
+          type: string
+          format: date
+          description: date contains the date in ISO 8601 format (YYYY-MM-DD).
+        status:
+          "$ref": "#/components/schemas/datesSchoolStatus"
+        week:
+          type: integer
+          format: int32
+          description: |-
+            week specifies the week of the term this date sits within.
+        term:
+          type: integer
+          format: int32
+          description: |-
+            term specifies the term of the school year this date sits within.
+
+    datesDateResponse:
+      type: object
+      description: DateResponse contains the date resource stored on the server.
+      properties:
+        date:
+          "$ref": "#/components/schemas/datesDate"
+        statusCode:
+          "$ref": "#/components/schemas/StatusCode"
+
+    datesListDatesResponse:
+      type: object
+      description: |-
+        ListDatesResponse contains the response returned from the server
+        encapsulating a list of date resources.
+      properties:
+        dates:
+          type: array
+          description: dates contains a list of date resources from the server.
+          items:
+            "$ref": "#/components/schemas/datesDate"
+        statusCode:
+          "$ref": "#/components/schemas/StatusCode"
+
+    datesListTermsResponse:
+      type: object
+      description: |-
+        ListTermsResponse contains the response returned from the server
+        encapsulating a list of terms as calculated from school dates.
+      properties:
+        terms:
+          type: array
+          description: terms contains a list of calculated terms from the server.
+          items:
+            "$ref": "#/components/schemas/datesTerm"
+        statusCode:
+          "$ref": "#/components/schemas/StatusCode"
+
+    datesSchoolStatus:
+      type: integer
+      description: |-
+        SchoolStatus provides enums for the open status of the school.
+
+         - SchoolStatus_UNSPECIFIED (0) is null, and therefore illegal.
+         - SchoolStatus_OPEN (1) marks the school as open.
+         - SchoolStatus_CLOSED (2) marks the school as closed.
+         - SchoolStatus_MORNING (3) marks the school as open for the morning.
+         - SchoolStatus_AFTERNOON (4) marks the school as open for the afternoon.
+      default: 0
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+
+    datesTerm:
+      type: object
+      description: Term provides structured information about a calculated term.
+      properties:
+        schoolId:
+          type: string
+          format: uuid
+          description: |-
+            schoolId is the unique identifier of the school this term was
+            calculated for.
+        year:
+          type: integer
+          description: year is the year this term is within.
+        term:
+          type: integer
+          format: int32
+          description: |-
+            term is the term's ordering within a school year, for example,
+            Term 2.
+        start:
+          type: string
+          format: date
+          description: |-
+            start is the date the term starts in ISO 8601 format (YYYY-MM-DD).
+        end:
+          type: string
+          format: date
+          description: |-
+            end is the date the term ends in ISO 8601 format (YYYY-MM-DD).
+
+    datesUpdateDateRequest:
+      type: object
+      description: |-
+        UpdateDateRequest contains the request required to update a date
+        resource on the server.
+      properties:
+        dateId:
+          type: string
+          format: uuid
+          description: |-
+            dateId is the unique identifier of the date resource to update on
+            the server.
+        date:
+          "$ref": "#/components/schemas/datesDate"
+
     enrolmentsApplication:
       type: object
       description: |-
@@ -4140,14 +4896,15 @@ components:
         createTime:
           type: integer
           format: int64
-          description: createTime is when the resource was created in seconds from the
+          description: |-
+            createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
           type: integer
           format: int64
           description: |-
-            updateTime is the last time the resource was modified in seconds from
-            the epoch.
+            updateTime is the last time the resource was modified in seconds
+            from the epoch.
         status:
           "$ref": "#/components/schemas/enrolmentsApplicationStatus"
         jurisdiction:
@@ -4155,53 +4912,59 @@ components:
         jurisdictionalId:
           type: string
           description: |-
-            jurisdictionalId is the unique learner identifier for the educational
-            jurisdiction.
+            jurisdictionalId is the unique learner identifier for the
+            educational jurisdiction.
         schoolId:
           type: string
+          format: uuid
           description: |-
-            schoolId filters Enrolment Applications based on the school's LINC-ED
-            Tenant ID.
+            schoolId filters Enrolment Applications based on the school's tenant
+            ID.
             For example, "61f78993-90a9-4392-92dd-83a4368528b8".
         campusId:
           type: string
+          format: uuid
           description: |-
-            campusId filters Enrolment Applications based on the school's LINC-ED
-            Campus ID.
+            campusId filters Enrolment Applications based on the school's campus
+            ID.
         countryCode:
           type: string
           description: |-
-            countryCode is a ISO Alpha 2 country code as to which country the school
-            resides.
+            countryCode is a ISO Alpha 2 country code as to which country the
+            school resides.
         schoolCode:
           type: string
           description: |-
-            schoolCode is a school identifier as given by a state based educational
-            body.
+            schoolCode is a school identifier as given by a state based
+            educational body.
         campusCode:
           type: string
-          description: campusCode is the short code assigned for the campus. For example,
-            'PRI'
+          description: |-
+            campusCode is the short code assigned for the campus.
+            For example, 'PRI'.
         enrolmentYear:
           type: integer
           format: int32
-          description: enrolmentYear is the year in which the application was handed
+          description: |-
+            enrolmentYear is the year in which the application was handed
             in for.
         authorId:
           type: string
+          format: uuid
           description: |-
             authorId contains the id of the person who authored the received
             enrolment application.
         personId:
           type: string
+          format: uuid
           description: |-
-            personId is the linked LINC-ED person account, once the student has been
-            enroled.
+            personId is the linked Hero person account, once the student has
+            been enroled.
         notes:
           type: string
           description: |-
-            notes contains private notes about the enrolment process for the given
-            application.
+            notes contains private notes about the enrolment process for the
+            given application.
         fields:
           type: object
           description: dynamic field data
@@ -4244,7 +5007,8 @@ components:
       properties:
         caregiverId:
           type: string
-          description: caregiverId is the link to a person record within LINC-ED.
+          format: uuid
+          description: caregiverId is the link to a person record within Hero.
         type:
           "$ref": "#/components/schemas/enrolmentsContactType"
         relationship:
@@ -4432,14 +5196,16 @@ components:
             reactive.
         dateEnrolmentsOpens:
           type: string
+          format: date
           description: |
-            dateEnrolmentsOpen contains a 'yyyy-mm-dd' date string as to when
-            enrolments will open.
+            dateEnrolmentsOpen contains an ISO 8601 format (YYYY-MM-DD) date
+            string as to when enrolments will open.
         dateEnrolmentsClose:
           type: string
+          format: date
           description: |
-            dateEnrolmentsClose contains a 'yyyy-mm-dd' date string as to when
-            enrolments will close.
+            dateEnrolmentsClose contains an ISO 8601 format (YYYY-MM-DD) date
+            string as to when enrolments will close.
         introduction:
           type: string
           description: |
@@ -4461,11 +5227,14 @@ components:
 
     enrolmentsSection:
       type: object
+      description: |-
+        Section represents a page or section within an application form.
       properties:
         index:
           type: integer
           format: int32
-          description: index is the order in which the section should be sorted/displayed.
+          description: |-
+            index is the order in which the section should be sorted/displayed.
         title:
           type: string
           description: |-
@@ -4484,22 +5253,24 @@ components:
         count:
           type: integer
           format: int32
-          description: count is used by contact sections to define how many contacts
+          description: |-
+            count is used by contact sections to define how many contacts
             of that type to support.
         includeBillPayer:
           type: boolean
           format: boolean
-          description: includeBillPayer is used by contact sections to determine whether
+          description: |-
+            includeBillPayer is used by contact sections to determine whether
             to show the bill payer flag.
-      description: Section represents a page or section within an application form.
 
     enrolmentsField:
       type: object
-      description: |
+      description: |-
         Field contains the metadata about a Field, which forms part of a Schema.
       properties:
         fieldId:
           type: string
+          format: uuid
           description: fieldId is the unique dynamic field identifier.
         index:
           type: integer
@@ -4692,12 +5463,14 @@ components:
         name:
           type: string
           description: |-
-            name is the group name, as known by linc-ed, the default.
-            For example, Class.
+            name is the group name.
+            This provides the long or full name, or more descriptive name of
+            the group.
         label:
           type: string
           description: |
-            label is the display name of the group if edited by a School Admin.
+            label provides a smaller, better for mobile display label of the
+            group, if edited by a School Admin.
         year:
           type: integer
           format: int32
@@ -4831,14 +5604,14 @@ components:
             jurisdiction provides a parameter in order to calculate autogroup
             membership based on the specified jurisdiction.
         rangeStart:
-          format: date
           type: string
+          format: date
           description: |-
             rangeStart provides a parameter in order to calculate autogroup
             membership based on being after the specified starting date.
         rangeEnd:
-          format: date
           type: string
+          format: date
           description: |-
             rangeEnd provides a parameter in order to calculate autogroup
             membership based on being before the specified ending date.
@@ -4903,7 +5676,8 @@ components:
         createTime:
           type: integer
           format: int64
-          description: createTime is when the resource was created in seconds from the
+          description: |-
+            createTime is when the resource was created in seconds from the
             epoch.
         processedTime:
           type: integer
@@ -4964,20 +5738,25 @@ components:
         id:
           type: string
           format: uuid
-          description: id is the unique identifier of the school's Enrolment record.
+          description: |-
+            id is the unique identifier of the school's Enrolment record.
         createTime:
           type: integer
           format: int64
-          description: createTime is when the resource was created in seconds from the
+          description: |-
+            createTime is when the resource was created in seconds from the
             epoch.
         date:
           type: string
           format: date
-          description: date provides a searchable date as to when the update was performed.
+          description: |-
+            date provides a searchable date as to when the update was performed.
         schoolId:
           type: string
           format: uuid
-          description: schoolId is the unique identifier of the school who performed the change.
+          description: |-
+            schoolId is the unique identifier of the school who performed the
+            change.
         authorId:
           type: string
           format: uuid
@@ -4985,7 +5764,8 @@ components:
         personId:
           type: string
           format: uuid
-          description: personId provides a way to link the Enrolment to a LINC-ED person.
+          description: |-
+            personId provides a way to link the Enrolment to a Hero person.
         enrolmentId:
           type: string
           format: uuid
@@ -5004,19 +5784,22 @@ components:
           description: newMoeFte provides the new state of FTE, or blank.
         oldMoeType:
           type: string
-          description: oldMoeType provides the old state of MoE student type, or blank.
+          description: |-
+            oldMoeType provides the old state of MoE student type, or blank.
         newMoeType:
           type: string
-          description: newMoeType provides the new state of MoE student type, or blank.
+          description: |-
+            newMoeType provides the new state of MoE student type, or blank.
         reason:
           type: string
-          description: reason provides the reason as to why the change was made.
+          description: |-
+            reason provides the reason as to why the change was made.
 
     peopleBulkUpdateHomeroomRequest:
       type: object
       description: |-
-        BulkUpdateHomeroomRequest contains the request required to update a number
-        of homeroom members on the server.
+        BulkUpdateHomeroomRequest contains the request required to update a
+        number of homeroom members on the server.
       properties:
         schoolId:
           type: string
@@ -5036,15 +5819,15 @@ components:
     peopleBulkUpdateHomeroomResponse:
       type: object
       description: |-
-        BulkUpdateHomeroomResponse contains the response returned from the server
-        encapsulating the updated People resources.
+        BulkUpdateHomeroomResponse contains the response returned from the
+        server encapsulating the updated People resources.
       properties:
         updated:
           type: array
           items:
             "$ref": "#/components/schemas/peoplePerson"
-          description: updated contains a list of updated people resources from the
-            server.
+          description: |-
+            updated contains a list of updated people resources from the server.
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
 
@@ -5080,6 +5863,9 @@ components:
 
     peopleCaregiverSearchResult:
       type: object
+      description: |-
+        CaregiverSearchResult is a partial Person record returned as part of a
+        Caregiver search.
       properties:
         personId:
           type: string
@@ -5098,23 +5884,24 @@ components:
           description: |-
             inThisSchool reflects whether this result is for a Caregiver who is
             associated with the searcher's school.
-      description: |-
-        CaregiverSearchResult is a partial Person record returned as part of a
-        Caregiver search.
 
     peopleContact:
       type: object
+      description: |-
+        Contact contains information about a contact that is linked to the
+        person.
       properties:
         caregiverId:
           type: string
           format: uuid
-          description: caregiverId is the link to a person record within LINC-ED.
+          description: caregiverId is the link to a person record within Hero.
         type:
           "$ref": "#/components/schemas/peopleContactType"
         priority:
           type: integer
           format: int64
-          description: priority determines the order in which contacts are displayed.
+          description: |-
+            priority determines the order in which contacts are displayed.
         relationship:
           "$ref": "#/components/schemas/RelationshipType"
         notes:
@@ -5130,8 +5917,8 @@ components:
           type: boolean
           format: boolean
           description: |-
-            contactAccessPending specifies whether there is a pending Access Request
-            for this caregiver from the Learner's school.
+            contactAccessPending specifies whether there is a pending Access
+            Request for this caregiver from the Learner's school.
         pendingContactName:
           type: string
           description: |-
@@ -5141,14 +5928,14 @@ components:
           type: string
           format: email
           description: |-
-            pendingContactEmail contains the email address of the contact until they
-            have approved or rejected the contact request.
+            pendingContactEmail contains the email address of the contact until
+            they have approved or rejected the contact request.
         pendingContactRequestId:
           type: string
           format: uuid
           description: |-
-            pendingContactName contains the request identifier of the contact until
-            they have approved or rejected the contact request.
+            pendingContactName contains the request identifier of the contact
+            until they have approved or rejected the contact request.
         receivesSms:
           type: boolean
           format: boolean
@@ -5158,14 +5945,15 @@ components:
         billPayer:
           type: boolean
           format: boolean
-          description: billPayer specifies whether the contact pays bills for this Learner.
+          description: |-
+            billPayer specifies whether the contact pays bills for this Learner.
         fields:
           type: object
-          description: dynamic fields to do with the relationship (rather than the caregiver)
+          description: |-
+            dynamic fields to do with the relationship (rather than the
+            caregiver)
           additionalProperties:
             "$ref": "#/components/schemas/FieldValue"
-      description: Contact contains information about a contact that is linked to the
-        person.
 
     peopleContactType:
       type: integer
@@ -5191,8 +5979,8 @@ components:
     peopleCreateAccessRequestRequest:
       type: object
       description: |-
-        CreateAccessRequestRequest contains the request required to create an Access
-        Request resource on the server.
+        CreateAccessRequestRequest contains the request required to create an
+        Access Request resource on the server.
       properties:
         request:
           "$ref": "#/components/schemas/peopleAccessRequest"
@@ -5200,8 +5988,8 @@ components:
     peopleCreateEnrolmentRequest:
       type: object
       description: |-
-        CreateEnrolmentRequest contains the request required to create an Enrolment
-        resource on the server.
+        CreateEnrolmentRequest contains the request required to create an
+        Enrolment resource on the server.
       properties:
         enrolment:
           "$ref": "#/components/schemas/peopleEnrolment"
@@ -5224,22 +6012,25 @@ components:
         id:
           type: string
           format: uuid
-          description: id is the unique identifier of the school's Enrolment record.
+          description: |-
+            id is the unique identifier of the school's Enrolment record.
         createTime:
           type: integer
           format: int64
-          description: createTime is when the resource was created in seconds from the
+          description: |-
+            createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
           type: integer
           format: int64
           description: |-
-            updateTime is the last time the resource was modified in seconds from
-            the epoch.
+            updateTime is the last time the resource was modified in seconds
+            from the epoch.
         personId:
           type: string
           format: uuid
-          description: personId provides a way to link the Enrolment to a LINC-ED person.
+          description: |-
+            personId provides a way to link the Enrolment to a Hero person.
         applicationId:
           type: string
           format: uuid
@@ -5251,8 +6042,8 @@ components:
         jurisdictionalId:
           type: string
           description: |-
-            jurisdictionalId is the unique learner identifier for the educational
-            jurisdiction.
+            jurisdictionalId is the unique learner identifier for the
+            educational jurisdiction.
         jurisdictionalStatus:
           "$ref": "#/components/schemas/peopleJurisdictionalStatus"
         status:
@@ -5266,41 +6057,49 @@ components:
         entryDate:
           type: string
           format: date
-          description: 'entryDate is when the Learner started this school. Format: ISO 8601.'
+          description: |-
+            entryDate is when the Learner started this school in ISO 8601
+            format (YYYY-MM-DD).
         exitDate:
           type: string
           format: date
-          description: 'exitDate is when the Learner left this school. Format: ISO 8601.'
+          description: |-
+            exitDate is when the Learner left this school in ISO 8601 format
+            (YYYY-MM-DD).
         departureReason:
           type: string
-          description: departureReason is the reason the Learner left this school.
+          description: |-
+            departureReason is the reason the Learner left this school.
         fields:
           type: object
           additionalProperties:
             "$ref": "#/components/schemas/FieldValue"
-          description: fields holds this Learner's dynamic field values for enrolments.
+          description: |-
+            fields holds this Learner's dynamic field values for enrolments.
         learner:
           "$ref": "#/components/schemas/peopleLearner"
         postCounts:
           type: array
           items:
             "$ref": "#/components/schemas/peoplePostCount"
-          description: Summary of posts about this Person from a specific school.
+          description: |-
+            Summary of posts about this Person from a specific school.
 
     peopleEnrolmentMeta:
       type: object
+      description: |-
+        EnrolmentMeta contains extra information that Hero can inject mainly
+        based on jurisdictional differences.
       properties:
         fields:
           type: object
           additionalProperties:
             "$ref": "#/components/schemas/FieldValue"
           description: fields contains dynamic meta fields.
-      description: |-
-        EnrolmentMeta contains extra information that LINC-ED can inject mainly
-        based on jurisdictional differences.
 
     peopleEnrolmentResponse:
       type: object
+      description: EnrolmentResponse contains the Enrolment resource stored on the server.
       properties:
         enrolment:
           "$ref": "#/components/schemas/peopleEnrolment"
@@ -5308,7 +6107,6 @@ components:
           "$ref": "#/components/schemas/peoplePerson"
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
-      description: EnrolmentResponse contains the Enrolment resource stored on the server.
 
     peopleEnrolmentStatus:
       type: integer
@@ -5334,17 +6132,21 @@ components:
 
     peopleEnrolmentStub:
       type: object
+      description: |-
+        EnrolmentStub contains metadata about a learner's enrolment history.
       properties:
         enrolmentId:
           type: string
-          description: enrolmentId is the unique identifier of the linked Enrolment
+          format: uuid
+          description: |-
+            enrolmentId is the unique identifier of the linked Enrolment
             resource.
         schoolId:
           type: string
+          format: uuid
           description: schoolId is the unique identifier of the school.
         status:
           "$ref": "#/components/schemas/peopleEnrolmentStatus"
-      description: EnrolmentStub contains metadata about a learner's enrolment history.
 
     peopleJurisdictionalStatus:
       type: integer
@@ -5374,26 +6176,26 @@ components:
       type: object
       description: |-
         Learner contains the data structure for a person of type Learner within
-        LINC-ED.
+        Hero.
       properties:
         schoolId:
           type: string
           format: uuid
           description: |-
-            schoolId is the unique identifier of the school the Learner is currently
-            attending.
+            schoolId is the unique identifier of the school the Learner is
+            currently attending.
         schoolCampusId:
           type: string
           format: uuid
           description: |-
-            schoolCampusId is the current campus that the Learner is assigned. For
-            example, 'Primary School'
+            schoolCampusId is the current campus that the Learner is assigned.
+            For example, 'Primary School'.
         homeroomId:
           type: string
           format: uuid
           description: |-
-            homeroomId is the class the Learner is assigned as their home room. Will
-            be a LINC-ED Group.
+            homeroomId is the class the Learner is assigned as their home room.
+            Will be a foreign key of a Hero Group.
         enrolmentId:
           type: string
           format: uuid
@@ -5447,12 +6249,14 @@ components:
           type: string
           format: uuid
           description: |-
-            schoolId contains the LINC-ED school the sibling is currently
-            enroled at.
+            schoolId contains the Hero school the sibling is currently enroled
+            at.
         personId:
           type: string
           format: uuid
-          description: personId contains the unique person identifier to the sibling record.
+          description: |-
+            personId contains the unique person identifier to the sibling
+            record.
 
     peopleLearnerFlag:
       type: integer
@@ -5474,8 +6278,8 @@ components:
     peopleLearnerSearchResult:
       type: object
       description: |-
-        LearnerSearchResult is a partial Person record returned as part of a Learner
-        search.
+        LearnerSearchResult is a partial Person record returned as part of a
+        Learner search.
       properties:
         personId:
           type: string
@@ -5492,8 +6296,8 @@ components:
         jurisdictionalId:
           type: string
           description: |-
-            jurisdictionalId is the unique learner identifier for the educational
-            jurisdiction.
+            jurisdictionalId is the unique learner identifier for the
+            educational jurisdiction.
         inThisSchool:
           type: boolean
           format: boolean
@@ -5504,18 +6308,20 @@ components:
           type: boolean
           format: boolean
           description: |-
-            isFormer reflects whether this result is for a Learner who was previously
-            enrolled at the searcher's school.
+            isFormer reflects whether this result is for a Learner who was
+            previously enrolled at the searcher's school.
 
     peopleListAccessRequestsResponse:
       type: object
       description: |-
-        ListAccessRequestsResponse contains the response returned from the server
-        encapsulating a list of Access Request resources.
+        ListAccessRequestsResponse contains the response returned from the
+        server encapsulating a list of Access Request resources.
       properties:
         requests:
           type: array
-          description: requests contains a list of access request resources from the server.
+          description: |-
+            requests contains a list of access request resources from the
+            server.
           items:
             "$ref": "#/components/schemas/peopleAccessRequest"
         statusCode:
@@ -5524,8 +6330,8 @@ components:
     peopleListAuditsResponse:
       type: object
       description: |-
-        ListAuditsResponse returns a list of audit resources, or informs the client
-        of the error.
+        ListAuditsResponse returns a list of audit resources, or informs the
+        client of the error.
       properties:
         audits:
           type: array
@@ -5538,14 +6344,15 @@ components:
     peopleListEnrolmentsResponse:
       type: object
       description: |-
-        ListEnrolmentsResponse returns a list of enrolment resources and people if
-        included, or informs the client of the error.
+        ListEnrolmentsResponse returns a list of enrolment resources and people
+        if included, or informs the client of the error.
       properties:
         enrolments:
           type: array
           items:
             "$ref": "#/components/schemas/peopleEnrolment"
-          description: enrolments contains a list of enrolment resources from the server.
+          description: |-
+            enrolments contains a list of enrolment resources from the server.
         people:
           type: array
           items:
@@ -5572,8 +6379,8 @@ components:
           items:
             "$ref": "#/components/schemas/peopleEnrolment"
           description: |-
-            enrolments contains the included resources if requested via the include
-            query param.
+            enrolments contains the included resources if requested via the
+            include query param.
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
 
@@ -5585,24 +6392,26 @@ components:
       properties:
         id:
           type: string
+          format: uuid
           description: id is the Person's unique identifier.
         createTime:
           type: integer
           format: int64
           description: |-
-            createTime is when the resource was created in seconds from the epoch.
+            createTime is when the resource was created in seconds from the
+            epoch.
         updateTime:
           type: integer
           format: int64
           description: |-
-            updateTime is the last time the resource was modified in seconds from
-            the epoch.
+            updateTime is the last time the resource was modified in seconds
+            from the epoch.
         type:
           "$ref": "#/components/schemas/peoplePersonType"
         userId:
           type: string
           format: uuid
-          description: userId is the ID of this Person's User record
+          description: userId is the ID of this Person's User record.
         archived:
           type: boolean
           format: boolean
@@ -5619,10 +6428,9 @@ components:
           "$ref": "#/components/schemas/Jurisdiction"
         jurisdictionalId:
           type: string
-          format: uuid
           description: |-
-            jurisdictionalId is the unique learner identifier for the educational
-            jurisdiction.
+            jurisdictionalId is the unique learner identifier based on the
+            educational jurisdiction.
         heroId:
           type: integer
           format: uint64
@@ -5632,16 +6440,16 @@ components:
         fields:
           type: object
           description: |-
-            fields contains dynamic fields, which is where the bulk of people data
-            is referenced from. The schema for a given school can be found via
-            people-schema service.
+            fields contains dynamic fields, which is where the bulk of people
+            data is referenced from. The schema for a given school can be found
+            via people-schema service.
           additionalProperties:
             "$ref": "#/components/schemas/FieldValue"
         postCounts:
           type: array
           description: |-
-            postCounts contains a summary of post count meta information about this
-            person.
+            postCounts contains a summary of post count meta information about
+            this person.
           items:
             "$ref": "#/components/schemas/peoplePostCount"
         learner:
@@ -5654,8 +6462,8 @@ components:
     peoplePersonResponse:
       type: object
       description: |-
-        PersonResponse contains the response returned from the server encapsulating
-        the Person resource.
+        PersonResponse contains the response returned from the server
+        encapsulating the Person resource.
       properties:
         person:
           "$ref": "#/components/schemas/peoplePerson"
@@ -5685,26 +6493,31 @@ components:
 
     peoplePostCount:
       type: object
+      description: |-
+        PostCount provides summary information for Posts about a Person,
+        grouped by type.
       properties:
         type:
           type: string
-          description: type specifies the type of summary, for example pages, goals e.t.c.
+          description: |-
+            type specifies the type of summary, for example pages, goals e.t.c.
         items:
           type: array
           items:
             "$ref": "#/components/schemas/peoplePostCountItem"
-          description: items contains summary counts for the items matching the type.
-      description: |-
-        PostCount provides summary information for Posts about a Person, grouped by
-        type.
+          description: |-
+            items contains summary counts for the items matching the type.
 
     peoplePostCountItem:
       type: object
-      description: PostCountItem provides summary information for Posts about a Person
+      description: |-
+        PostCountItem provides summary information for Posts about a Person.
       properties:
         id:
           type: string
-          description: id contains the identifier of the entity (page, goal, etc) in
+          format: uuid
+          description: |-
+            id contains the identifier of the entity (page, goal, etc) in
             question.
         published:
           type: integer
@@ -5717,7 +6530,8 @@ components:
         latestPostDate:
           type: string
           format: int64
-          description: latestPostDate contains the timestamp of latest post (displayDate).
+          description: |-
+            latestPostDate contains the epoch timestamp of latest post (displayDate).
         year:
           type: integer
           format: int32
@@ -5733,7 +6547,8 @@ components:
           type: array
           items:
             "$ref": "#/components/schemas/peopleCaregiverSearchResult"
-          description: caregivers contains a list of search result resources from the
+          description: |-
+            caregivers contains a list of search result resources from the
             server.
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
@@ -5748,8 +6563,8 @@ components:
           type: array
           items:
             "$ref": "#/components/schemas/peopleLearnerSearchResult"
-          description: learners contains a list of search result resources from the
-            server.
+          description: |-
+            learners contains a list of search result resources from the server.
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
 
@@ -5759,36 +6574,41 @@ components:
       properties:
         schoolId:
           type: string
+          format: uuid
           description: |-
             schoolId is the unique identifier of the school the Staff Member is
             currently attending.
         schoolCampusId:
           type: string
+          format: uuid
           description: |-
             schoolCampusId is the current campus that the Staff member has been
             assigned. For example, 'Primary School'
         homeroomId:
           type: string
+          format: uuid
           description: |-
-            homeroomId is the class the Staff member has been assigned as their home
-            room. Will be a LINC-ED Group.
+            homeroomId is the class the Staff member has been assigned as their
+            home room. Provides the foreign key to a Hero Group.
         contacts:
           type: array
           items:
             "$ref": "#/components/schemas/peopleContact"
           description: |-
-            contacts is a list of people who may be emergency contacts for a staff
-            member.
+            contacts is a list of people who may be emergency contacts for a
+            staff member.
 
     peopleUpdateEnrolmentRequest:
       type: object
       description: |-
-        UpdateEnrolmentRequest contains the request required to update an Enrolment
-        resource on the server.
+        UpdateEnrolmentRequest contains the request required to update an
+        Enrolment resource on the server.
       properties:
         enrolmentId:
           type: string
-          description: enrolmentId is the unique enrolment resource to update on the
+          format: uuid
+          description: |-
+            enrolmentId is the unique enrolment resource to update on the
             server.
         enrolment:
           "$ref": "#/components/schemas/peopleEnrolment"
@@ -5801,7 +6621,9 @@ components:
       properties:
         personId:
           type: string
-          description: personId is the unique Person resource to update on the server.
+          format: uuid
+          description: |-
+            personId is the unique Person resource to update on the server.
         person:
           "$ref": "#/components/schemas/peoplePerson"
         reason:
@@ -5852,7 +6674,8 @@ components:
 
     schoolsAddressLocation:
       type: object
-      description: AddressLocation provides precise GPS coordinates for a given location.
+      description: |-
+        AddressLocation provides precise GPS coordinates for a given location.
       properties:
         latitude:
           type: number
@@ -5864,8 +6687,8 @@ components:
           type: number
           format: float
           description: |-
-            longitude provides the precise north-south (longitudinal) point of the
-            address location.
+            longitude provides the precise north-south (longitudinal) point of
+            the address location.
 
     schoolsFeature:
       type: integer
@@ -6397,6 +7220,9 @@ components:
 
     schoolsListOptionGroupsResponse:
       type: object
+      description: |-
+        ListOptionGroupsResponse contains a list of option group resources from
+        the server.
       properties:
         optionGroups:
           type: array
@@ -6405,12 +7231,12 @@ components:
           description: optionGroups contains a list of option groups.
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
-      description: |-
-        ListOptionGroupsResponse contains a list of option group resources from the
-        server.
 
     schoolsListOptionHeadingsResponse:
       type: object
+      description: |-
+        ListOptionHeadingsResponse contains a list of option heading resources
+        from the server.
       properties:
         optionHeadings:
           type: array
@@ -6419,13 +7245,11 @@ components:
           description: optionHeadings contains a list of optionHeadings.
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
-      description: |-
-        ListOptionHeadingsResponse contains a list of option heading resources from
-        the server.
 
     schoolsListOptionsResponse:
       type: object
-      description: ListOptionsResponse contains a list of option resources from the server.
+      description: |-
+        ListOptionsResponse contains a list of option resources from the server.
       properties:
         options:
           type: array
@@ -6437,6 +7261,9 @@ components:
 
     schoolsListSchoolsResponse:
       type: object
+      description: |-
+        ListSchoolsResponse contains a list of school resources from the
+        server.
       properties:
         schools:
           type: array
@@ -6445,8 +7272,6 @@ components:
           description: schools contains a list of Schools.
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
-      description: ListSchoolsResponse contains a list of school resources from the
-        server.
 
     schoolsOption:
       type: object
@@ -6454,20 +7279,21 @@ components:
       properties:
         id:
           type: string
+          format: uuid
           description: |-
-            Option Meta
-            id is the unique identifier linked to an option
+            id is the unique identifier linked to an option.
         createTime:
           type: integer
           format: int64
-          description: createTime is when the resource was created in seconds from the
+          description: |-
+            createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
           type: integer
           format: int64
           description: |-
-            updateTime is the last time the resource was modified in seconds from
-            the epoch.
+            updateTime is the last time the resource was modified in seconds
+            from the epoch.
         key:
           type: string
           description: |-
@@ -6483,6 +7309,7 @@ components:
           description: description provides further information about the field.
         headingId:
           type: string
+          format: uuid
           description: |-
             headingId is the sub group the field is linked to in order to
             dynamically generate UI.
@@ -6514,6 +7341,7 @@ components:
           type: array
           items:
             type: string
+            format: uuid
           description: |-
             optionSetIds is a list of IDs for Option Sets to which this Option
             belongs
@@ -6534,9 +7362,13 @@ components:
 
     schoolsOptionGroup:
       type: object
+      description: |-
+        OptionGroup provides the model for option groups, that is a logical
+        grouping of school options.
       properties:
         id:
           type: string
+          format: uuid
           description: id is the unique identifier linked to an option
         createTime:
           type: integer
@@ -6571,26 +7403,27 @@ components:
           description: |-
             Sequence is a rough ordering. The lower the number, the closer to the
             top the option will appear in the options menu
-      description: |-
-        OptionGroup provides the model for option groups, that is a logical
-        grouping of school options.
 
     schoolsOptionGroupResponse:
       type: object
+      description: |-
+        OptionGroupResponse returns a option group resource, or informs the client
+        of the error.
       properties:
         optionGroup:
           "$ref": "#/components/schemas/schoolsOptionGroup"
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
-      description: |-
-        OptionGroupResponse returns a option group resource, or informs the client
-        of the error.
 
     schoolsOptionHeading:
       type: object
+      description: |-
+        OptionHeading provides the model of a school option heading for dynamically
+        generating a hierarchy of options for display purposes.
       properties:
         id:
           type: string
+          format: uuid
           description: id is the unique identifier linked to an option heading
         createTime:
           type: integer
@@ -6613,6 +7446,7 @@ components:
           description: name is text that will appear in the option group heading
         groupId:
           type: string
+          format: uuid
           description: |-
             groupid is the accordian group the heading is linked to in order to
             dynamically generate UI
@@ -6622,33 +7456,36 @@ components:
           description: |-
             Sequence is a rough ordering. The lower the number, the closer to the
             top the option will appear in the options menu.
-      description: |-
-        OptionHeading provides the model of a school option heading for dynamically
-        generating a hierarchy of options for display purposes.
 
     schoolsOptionHeadingResponse:
       type: object
+      description: |-
+        OptionHeadingResponse returns a option heading resource, or informs the
+        client of the error.
       properties:
         optionHeading:
           "$ref": "#/components/schemas/schoolsOptionHeading"
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
-      description: |-
-        OptionHeadingResponse returns a option heading resource, or informs the
-        client of the error.
 
     schoolsOptionResponse:
       type: object
+      description: |-
+        OptionResponse returns a option resource, or informs the client of
+        the error.
       properties:
         option:
           "$ref": "#/components/schemas/schoolsOption"
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
-      description: OptionResponse returns a option resource, or informs the client of
-        the error.
 
     schoolsPhoneNumber:
       type: object
+      description: |-
+        PhoneNumber provides a simplified structure which is based on the North
+        American Numbering Plan.
+        See https://en.wikipedia.org/wiki/North_American_Numbering_Plan for more
+        details.
       properties:
         internationalDialingPrefix:
           type: string
@@ -6680,11 +7517,6 @@ components:
           description: |-
             extensionNumber provides a field to store an office extension number.
             For example #768
-      description: |-
-        PhoneNumber provides a simplified structure which is based on the North
-        American Numbering Plan.
-        See https://en.wikipedia.org/wiki/North_American_Numbering_Plan for more
-        details.
 
     schoolsSchool:
       type: object
@@ -6692,6 +7524,7 @@ components:
       properties:
         id:
           type: string
+          format: uuid
           description: id is the School's unique identifier.
         createTime:
           type: integer
@@ -6712,18 +7545,19 @@ components:
         domain:
           type: string
           description: |-
-            domain stores the school's official website address for use in documents
-            and reports.
+            domain stores the school's official website address for use in
+            documents and reports.
         phone:
           "$ref": "#/components/schemas/schoolsPhoneNumber"
         fax:
           "$ref": "#/components/schemas/schoolsPhoneNumber"
         emailAddress:
           type: string
+          format: email
           description: |-
-            email is the School Email address on which the public can send e-mails
-            to. This email address will be used to send replies from txt messages
-            and other admin notification emails.
+            email is the School Email address on which the public can send
+            e-mails to. This email address will be used to send replies from
+            txt messages and other admin notification emails.
         physicalAddress:
           "$ref": "#/components/schemas/schoolsAddress"
         postalAddress:
@@ -6741,6 +7575,7 @@ components:
             jurisdictional authority (i.e. NZ MOE)
         logoMediaId:
           type: string
+          format: uuid
           description: |-
             logoMediaId is the ID of a Media record which contains the school's
             logo as a web-viewable image
@@ -6750,31 +7585,34 @@ components:
             "$ref": "#/components/schemas/FieldValue"
         optionSetIds:
           type: array
+          description: |-
+            optionSetIds contain a list of option set unique identifiers that
+            allow building the School's Option Schema.
           items:
             type: string
-          description: |-
-            optionSetIds contain a list of option set unique identifiers that allow
-            building the School's Option Schema
+            format: uuid
         featuresAvailable:
           type: array
+          description: |-
+            featuresAvailable determines which Features are potentially
+            available to this School.
           items:
             "$ref": "#/components/schemas/schoolsFeature"
-          description: |-
-            featuresAvailable determines which Features are potentially available to
-            this School.
         featuresEnabled:
           type: array
+          description: |-
+            featuresEnabled determines which Features are enabled for this
+            School.
           items:
             "$ref": "#/components/schemas/schoolsFeature"
-          description: featuresEnabled determines which Features are enabled for this
-            School.
         supportPersonIds:
           type: array
-          items:
-            type: string
           description: |-
             supportPersonIds is a list of Person IDs for staff members who have
             permission to create support tickets.
+          items:
+            type: string
+            format: uuid
 
     schoolsSchoolOptionsResponse:
       type: object
@@ -6782,42 +7620,270 @@ components:
       properties:
         options:
           type: array
+          description: |-
+            options contains an array of options specific to a school's options.
           items:
             "$ref": "#/components/schemas/schoolsOption"
-          description: options contains an array of options specific to a school's options
         optionHeadings:
           type: array
-          items:
-            "$ref": "#/components/schemas/schoolsOptionHeading"
           description: |-
             optionHeadings contains an array of option headings specific to a
-            school's options
+            school's options.
+          items:
+            "$ref": "#/components/schemas/schoolsOptionHeading"
         optionGroups:
           type: array
+          description: |-
+            optionGroups contains an array of option groups specific to a
+            school's options.
           items:
             "$ref": "#/components/schemas/schoolsOptionGroup"
-          description: |-
-            optionGroups contains an array of option groups specific to a school's
-            options
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
 
     schoolsSchoolResponse:
       type: object
+      description: |-
+        SchoolResponse returns a school resource, or informs the client of
+        the error.
       properties:
         school:
           "$ref": "#/components/schemas/schoolsSchool"
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
-      description: SchoolResponse returns a school resource, or informs the client of
-        the error.
 
     schoolsUpdateSchoolRequest:
       type: object
+      description: UpdateSchoolRequest Updates a school resource on the server.
       properties:
         schoolId:
           type: string
+          format: uuid
           description: The specific School to Update.
         school:
           "$ref": "#/components/schemas/schoolsSchool"
-      description: UpdateSchoolRequest Updates a school resource on the server.
+
+    timetableCreatePeriodRequest:
+      type: object
+      description: |-
+        CreatePeriodRequest contains the request required to create a period
+        resource on the server.
+      properties:
+        period:
+          "$ref": "#/components/schemas/timetablePeriod"
+
+    timetableCreateStructureRequest:
+      type: object
+      description: |-
+        CreateStructureRequest contains the request required to create a
+        timetable structure resource on the server.
+      properties:
+        structure:
+          "$ref": "#/components/schemas/timetableStructure"
+
+    timetableDay:
+      type: object
+      description: |-
+        Day provides structured information about a timetabled day, which
+        contains the timetabled periods for the given day.
+      properties:
+        name:
+          type: string
+          description: name contains a label for the day. For example 'Monday'.
+        isoDayNumber:
+          type: integer
+          format: int32
+          description: isoDayNumber is the ISO Day of Week (1-7 = Mon-Sun)
+        periodIds:
+          type: array
+          description: |-
+            periodIds contains links to the timetable periods that occur on
+            this day.
+          items:
+            type: string
+            format: uuid
+
+    timetableListPeriodsResponse:
+      type: object
+      description: |-
+        ListPeriodsResponse contains the response returned from the server
+        encapsulating a list of period resources.
+      properties:
+        periods:
+          type: array
+          description: |-
+            periods contains a list of period resources from the server.
+          items:
+            "$ref": "#/components/schemas/timetablePeriod"
+        statusCode:
+          "$ref": "#/components/schemas/StatusCode"
+
+
+    timetableListStructuresResponse:
+      type: object
+      description: |-
+        ListStructuresResponse contains the response returned from the server
+        encapsulating a list of timetable structure resources.
+      properties:
+        structures:
+          type: array
+          description: |-
+            structures contains a list of timetable structure resources from
+            the server.
+          items:
+            "$ref": "#/components/schemas/timetableStructure"
+        periods:
+          type: array
+          description: |-
+            periods contains the included resources if requested via the include
+            query param.
+          items:
+            "$ref": "#/components/schemas/timetablePeriod"
+        statusCode:
+          "$ref": "#/components/schemas/StatusCode"
+
+    timetablePeriod:
+      type: object
+      description: |-
+        Period provides structured information about a timetabled period.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: |-
+            id is the unique identifier of the school's timetabled period.
+        createTime:
+          type: integer
+          format: int64
+          description: |-
+            createTime is when the resource was created in seconds from the
+            epoch.
+        schoolId:
+          type: string
+          format: uuid
+          description: |-
+            schoolId specifies the unique identifier of the school who created
+            the period.
+        campusId:
+          type: string
+          format: uuid
+          description: |-
+            campusId specifies the unique identifier of the school campus who
+            created the period.
+        authorId:
+          type: string
+          format: uuid
+          description: |-
+            authorId is the unique identifier of the person who created the
+            period.
+        shortName:
+          type: string
+          description: |-
+            shortName provides a label, or display name of the period.
+            For example, 'P1'.
+        longName:
+          type: string
+          description: |-
+            longName provides a full description of the period.
+            For example, 'Period 1'.
+        duration:
+          type: integer
+          format: int32
+          description: duration is the length of this period in minutes.
+        startTime:
+          type: string
+          description: |-
+            startTime is the time at which this period starts (HH:MM).
+        structureId:
+          type: string
+          format: uuid
+          description: |-
+            structureId is the unique identifier of the timetable structure
+            this period is linked to.
+
+    timetablePeriodResponse:
+      type: object
+      description: |-
+        PeriodResponse contains the period resource stored on the server.
+      properties:
+        period:
+          "$ref": "#/components/schemas/timetablePeriod"
+        statusCode:
+          "$ref": "#/components/schemas/StatusCode"
+
+    timetableStructure:
+      type: object
+      description: |-
+        Structure provides information about a school's timetable structure.
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: |-
+            id is the unique identifier of the school's timetable structure
+            record.
+        createTime:
+          type: integer
+          format: int64
+          description: |-
+            createTime is when the resource was created in seconds from the
+            epoch.
+        updateTime:
+          type: integer
+          format: int64
+          description: |-
+            updateTime is the last time the resource was modified in seconds
+            from the epoch.
+        schoolId:
+          type: string
+          format: uuid
+          description: |-
+            schoolId is the unique identifier of the school who created the
+            timetable structure.
+        campusId:
+          type: string
+          format: uuid
+          description: |-
+            campusId is the unique identifier of the school's campus who created
+            the timetable structure.
+        authorId:
+          type: string
+          format: uuid
+          description: |-
+            authorId is the unique identifier of the person who created the
+            timetable structure.
+        name:
+          type: string
+          description: |-
+            name is the name of the structure.
+            For example, 'Term 3'.
+        effectiveFrom:
+          type: string
+          format: date
+          description: |-
+            effectiveFrom is the date from which this timetable structure will
+            be in effect in ISO 8601 format (YYYY-MM-DD).
+        days:
+          type: array
+          description: |-
+            days contains a list of weekdays days, containing the timetabled
+            periods for each given day.
+          items:
+            "$ref": "#/components/schemas/timetableDay"
+        archived:
+          type: boolean
+          format: boolean
+          description: |-
+            archived specifies whether the timetable structure has been
+            archived.
+
+    timetableStructureResponse:
+      type: object
+      description: |-
+        StructureResponse contains the timetable structure resource stored on
+        the server.
+      properties:
+        structure:
+          "$ref": "#/components/schemas/timetableStructure"
+        statusCode:
+          "$ref": "#/components/schemas/StatusCode"
