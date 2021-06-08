@@ -908,7 +908,6 @@ paths:
       summary: Create Date
       description: Creates a date resource.
       security:
-
         - staging:
           - urn:hero:dates:dates
         - production:
@@ -4078,13 +4077,13 @@ components:
         counts:
           type: object
           additionalProperties:
-            type: integer
+            type: string
             format: int64
           description: |-
             counts is the meat of the analysis, providing a map of attendance
             codes to their number of occurrences.
         total:
-          type: integer
+          type: string
           format: int64
           description: |-
             total is the total number of attendance records for this Student
@@ -4102,7 +4101,7 @@ components:
           format: uuid
           description: id is the audit record's unique identifier.
         createTime:
-          type: integer
+          type: string
           format: int64
           description: |
             createTime is when the resource was created in seconds from the
@@ -4266,39 +4265,39 @@ components:
         Student's attendance summary for a given school term.
       properties:
         year:
-          type: integer
+          type: string
           format: int64
           description: year is the calendar year for which this summary applies.
         term:
-          type: integer
+          type: string
           format: int64
           description: term is the term number for which this summary applies.
         total:
-          type: integer
+          type: string
           format: int64
           description: |-
             total is the total number of attendance records for this student
             within the specified term.
         present:
-          type: integer
+          type: string
           format: int64
           description: |-
             present is the number of records with a Present code for this
             student within the specified term.
         late:
-          type: integer
+          type: string
           format: int64
           description: |-
             late is the number of records with a Late code for this student
             within the specified term.
         justified:
-          type: integer
+          type: string
           format: int64
           description: |-
             justified is the number of records with a Justified Absence code
             for this student within the specified term.
         unjustified:
-          type: integer
+          type: string
           format: int64
           description: |-
             unjustified is the number of records with an Unjustified Absence
@@ -4412,13 +4411,13 @@ components:
           description: |
             campusId is the school campus the attendance record is assigned to.
         createTime:
-          type: integer
+          type: string
           format: int64
           description: |
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
@@ -4440,13 +4439,13 @@ components:
             date contains the date the attendance was recorded against as a
             string to facilitate filtering.
         present:
-          type: integer
+          type: string
           format: int64
           description: |-
             present provides a count of "half-days attended", per the MoE
             half-day calculation.
         unjustifiablyAbsent:
-          type: integer
+          type: string
           format: int64
           description: |-
             unjustifiablyAbsent provides a count of half-day unjustifiable
@@ -4463,13 +4462,13 @@ components:
           format: uuid
           description: id is the attendance record's unique identifier.
         createTime:
-          type: integer
+          type: string
           format: int64
           description: |
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
@@ -4570,13 +4569,13 @@ components:
           format: uuid
           description: id is the attendance register's unique identifier.
         createTime:
-          type: integer
+          type: string
           format: int64
           description: |
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
@@ -4710,13 +4709,13 @@ components:
           format: uuid
           description: id is the unique identifier of the school's date record.
         createTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
@@ -4860,13 +4859,13 @@ components:
           description: |-
             id is the Enrolment Application's unique identifier.
         createTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
@@ -5109,12 +5108,12 @@ components:
           format: uuid
           description: id is the unique identifier of the school's enrolment schema
         createTime:
-          type: integer
+          type: string
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -5380,13 +5379,13 @@ components:
           description: |-
             id is the unique group identifier.
         createTime:
-          type: integer
+          type: string
           format: int64
           description: |
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -5640,13 +5639,13 @@ components:
           format: uuid
           description: id is the Access Request's unique identifier.
         createTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
             epoch.
         processedTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             processedTime is the last time the request was actioned by the caregiver
@@ -5707,7 +5706,7 @@ components:
           description: |-
             id is the unique identifier of the school's Enrolment record.
         createTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
@@ -5864,7 +5863,7 @@ components:
         type:
           "$ref": "#/components/schemas/peopleContactType"
         priority:
-          type: integer
+          type: string
           format: int64
           description: |-
             priority determines the order in which contacts are displayed.
@@ -5981,13 +5980,13 @@ components:
           description: |-
             id is the unique identifier of the school's Enrolment record.
         createTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
@@ -6169,14 +6168,14 @@ components:
             enrolmentId is the current or most recent educational facility the
             Learner has been assigned.
         siblingPosition:
-          type: integer
+          type: string
           format: int64
           description: |-
             siblingPosition contains the position in the family this child holds
             with respect to the current school they are enrolled in.
             One-based index, you can't be the 0th position in a family.
         siblingCount:
-          type: integer
+          type: string
           format: int64
           description: |-
             siblingCount contains the number of known siblings the learner has
@@ -6361,13 +6360,13 @@ components:
           format: uuid
           description: id is the Person's unique identifier.
         createTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
@@ -6398,7 +6397,7 @@ components:
             jurisdictionalId is the unique learner identifier based on the
             educational jurisdiction.
         heroId:
-          type: integer
+          type: string
           format: uint64
           description: |-
             heroId is the unique identifier across the system for systems that
@@ -7249,13 +7248,13 @@ components:
           description: |-
             id is the unique identifier linked to an option.
         createTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
@@ -7337,12 +7336,12 @@ components:
           format: uuid
           description: id is the unique identifier linked to an option
         createTime:
-          type: integer
+          type: string
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -7392,12 +7391,12 @@ components:
           format: uuid
           description: id is the unique identifier linked to an option heading
         createTime:
-          type: integer
+          type: string
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -7493,12 +7492,12 @@ components:
           format: uuid
           description: id is the School's unique identifier.
         createTime:
-          type: integer
+          type: string
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -7719,7 +7718,7 @@ components:
           description: |-
             id is the unique identifier of the school's timetabled period.
         createTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
@@ -7789,13 +7788,13 @@ components:
             id is the unique identifier of the school's timetable structure
             record.
         createTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: integer
+          type: string
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
