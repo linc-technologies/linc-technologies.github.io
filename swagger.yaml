@@ -1961,7 +1961,7 @@ paths:
           required: false
           schema:
             type: integer
-            format: int64
+            format: uint32
         - name: learnerSiblingCount
           description: |-
             learnerSiblingCount enables filtering all learner records based on the
@@ -1970,7 +1970,7 @@ paths:
           required: false
           schema:
             type: integer
-            format: int64
+            format: uint32
         - name: enrolments
           description: enrolments enables filtering enrolments by enrolment identifiers.
           in: query
@@ -2393,7 +2393,7 @@ paths:
           required: false
           schema:
             type: integer
-            format: int64
+            format: uint32
         - name: learnerSiblingCount
           description: |-
             learnerSiblingCount enables filtering all learner records based on the
@@ -2402,7 +2402,7 @@ paths:
           required: false
           schema:
             type: integer
-            format: int64
+            format: uint32
         - name: caregiverContactOf
           description: |-
             caregiverContactOf enables filtering caregivers being a contact of the
@@ -5863,8 +5863,8 @@ components:
         type:
           "$ref": "#/components/schemas/peopleContactType"
         priority:
-          type: string
-          format: int64
+          type: number
+          format: uint32
           description: |-
             priority determines the order in which contacts are displayed.
         relationship:
@@ -6168,15 +6168,15 @@ components:
             enrolmentId is the current or most recent educational facility the
             Learner has been assigned.
         siblingPosition:
-          type: string
-          format: int64
+          type: number
+          format: uint32
           description: |-
             siblingPosition contains the position in the family this child holds
             with respect to the current school they are enrolled in.
             One-based index, you can't be the 0th position in a family.
         siblingCount:
-          type: string
-          format: int64
+          type: number
+          format: uint32
           description: |-
             siblingCount contains the number of known siblings the learner has
             within their family including self, with respect to the current school
