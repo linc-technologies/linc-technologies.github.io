@@ -5863,8 +5863,8 @@ components:
         type:
           "$ref": "#/components/schemas/peopleContactType"
         priority:
-          type: string
-          format: int64
+          type: number
+          format: uint32
           description: |-
             priority determines the order in which contacts are displayed.
         relationship:
