@@ -2393,7 +2393,7 @@ paths:
           required: false
           schema:
             type: integer
-            format: int64
+            format: uint32
         - name: learnerSiblingCount
           description: |-
             learnerSiblingCount enables filtering all learner records based on the
@@ -2402,7 +2402,7 @@ paths:
           required: false
           schema:
             type: integer
-            format: int64
+            format: uint32
         - name: caregiverContactOf
           description: |-
             caregiverContactOf enables filtering caregivers being a contact of the
