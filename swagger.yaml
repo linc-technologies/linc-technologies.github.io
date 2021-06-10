@@ -6168,15 +6168,15 @@ components:
             enrolmentId is the current or most recent educational facility the
             Learner has been assigned.
         siblingPosition:
-          type: string
-          format: int64
+          type: number
+          format: uint32
           description: |-
             siblingPosition contains the position in the family this child holds
             with respect to the current school they are enrolled in.
             One-based index, you can't be the 0th position in a family.
         siblingCount:
-          type: string
-          format: int64
+          type: number
+          format: uint32
           description: |-
             siblingCount contains the number of known siblings the learner has
             within their family including self, with respect to the current school
