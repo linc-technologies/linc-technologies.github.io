@@ -1961,7 +1961,7 @@ paths:
           required: false
           schema:
             type: integer
-            format: int64
+            format: uint32
         - name: learnerSiblingCount
           description: |-
             learnerSiblingCount enables filtering all learner records based on the
@@ -1970,7 +1970,7 @@ paths:
           required: false
           schema:
             type: integer
-            format: int64
+            format: uint32
         - name: enrolments
           description: enrolments enables filtering enrolments by enrolment identifiers.
           in: query
