@@ -7513,9 +7513,15 @@ components:
             domain stores the school's official website address for use in
             documents and reports.
         phone:
-          "$ref": "#/components/schemas/schoolsPhoneNumber"
+          type: string
+            description: |-
+              phone is the School Phone Number on which the public can reach
+              the school from.
         fax:
-          "$ref": "#/components/schemas/schoolsPhoneNumber"
+          type: string
+            description: |-
+              fax is the School Fax Number on which the public can send
+              facsimile messages.
         emailAddress:
           type: string
           format: email
