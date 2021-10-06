@@ -3338,12 +3338,12 @@ paths:
           - urn:hero:timetable:structures
       tags:
         - Timetable
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            "$ref": "#/components/schemas/timetableCreateStructureRequest"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/timetableCreateStructureRequest"
       responses:
         '200':
           description: A successful response.
