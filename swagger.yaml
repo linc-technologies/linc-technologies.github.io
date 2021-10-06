@@ -980,11 +980,12 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: body
-          in: body
-          required: true
-          schema:
-            "$ref": "#/components/schemas/datesUpdateDateRequest"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/datesUpdateDateRequest"
       responses:
         '200':
           description: A successful response.
