@@ -1,8 +1,8 @@
 ---
-openapi: 3.0.2
+openapi: 3.0.3
 info:
   title: Hero for Developers
-  version: 0.4.1
+  version: 0.5.0
   x-logo:
     url: "./hero-logo.png"
     backgroundColor: "#FAFAFA"
@@ -914,12 +914,12 @@ paths:
           - urn:hero:dates:dates
       tags:
         - Dates
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            "$ref": "#/components/schemas/datesCreateDateRequest"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/datesCreateDateRequest"
       responses:
         '200':
           description: A successful response.
@@ -980,11 +980,12 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: body
-          in: body
-          required: true
-          schema:
-            "$ref": "#/components/schemas/datesUpdateDateRequest"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/datesUpdateDateRequest"
       responses:
         '200':
           description: A successful response.
@@ -1037,12 +1038,12 @@ paths:
           - urn:hero:dates:dates
       tags:
         - Dates
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            "$ref": "#/components/schemas/datesBulkCreateDatesRequest"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/datesBulkCreateDatesRequest"
       responses:
         '200':
           description: A successful response.
@@ -3202,12 +3203,12 @@ paths:
           - urn:hero:timetable:periods
       tags:
         - Timetable
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            "$ref": "#/components/schemas/timetableCreatePeriodRequest"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/timetableCreatePeriodRequest"
       responses:
         '200':
           description: A successful response.
@@ -3337,12 +3338,12 @@ paths:
           - urn:hero:timetable:structures
       tags:
         - Timetable
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            "$ref": "#/components/schemas/timetableCreateStructureRequest"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/timetableCreateStructureRequest"
       responses:
         '200':
           description: A successful response.
@@ -3614,7 +3615,7 @@ components:
             valueList stores the values for the list datatype.
             For example, ['apple', 'banana']
         valueInt:
-          type: string
+          type: integer
           format: int64
           description: |-
             valueInt stores a value for the integer datatype.
@@ -4077,13 +4078,13 @@ components:
         counts:
           type: object
           additionalProperties:
-            type: string
+            type: integer
             format: int64
           description: |-
             counts is the meat of the analysis, providing a map of attendance
             codes to their number of occurrences.
         total:
-          type: string
+          type: integer
           format: int64
           description: |-
             total is the total number of attendance records for this Student
@@ -4101,7 +4102,7 @@ components:
           format: uuid
           description: id is the audit record's unique identifier.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: |
             createTime is when the resource was created in seconds from the
@@ -4265,39 +4266,39 @@ components:
         Student's attendance summary for a given school term.
       properties:
         year:
-          type: string
+          type: integer
           format: int64
           description: year is the calendar year for which this summary applies.
         term:
-          type: string
+          type: integer
           format: int64
           description: term is the term number for which this summary applies.
         total:
-          type: string
+          type: integer
           format: int64
           description: |-
             total is the total number of attendance records for this student
             within the specified term.
         present:
-          type: string
+          type: integer
           format: int64
           description: |-
             present is the number of records with a Present code for this
             student within the specified term.
         late:
-          type: string
+          type: integer
           format: int64
           description: |-
             late is the number of records with a Late code for this student
             within the specified term.
         justified:
-          type: string
+          type: integer
           format: int64
           description: |-
             justified is the number of records with a Justified Absence code
             for this student within the specified term.
         unjustified:
-          type: string
+          type: integer
           format: int64
           description: |-
             unjustified is the number of records with an Unjustified Absence
@@ -4411,13 +4412,13 @@ components:
           description: |
             campusId is the school campus the attendance record is assigned to.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: |
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
@@ -4439,13 +4440,13 @@ components:
             date contains the date the attendance was recorded against as a
             string to facilitate filtering.
         present:
-          type: string
+          type: integer
           format: int64
           description: |-
             present provides a count of "half-days attended", per the MoE
             half-day calculation.
         unjustifiablyAbsent:
-          type: string
+          type: integer
           format: int64
           description: |-
             unjustifiablyAbsent provides a count of half-day unjustifiable
@@ -4462,13 +4463,13 @@ components:
           format: uuid
           description: id is the attendance record's unique identifier.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: |
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
@@ -4569,13 +4570,13 @@ components:
           format: uuid
           description: id is the attendance register's unique identifier.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: |
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
@@ -4709,13 +4710,13 @@ components:
           format: uuid
           description: id is the unique identifier of the school's date record.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
@@ -4859,13 +4860,13 @@ components:
           description: |-
             id is the Enrolment Application's unique identifier.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
@@ -5108,12 +5109,12 @@ components:
           format: uuid
           description: id is the unique identifier of the school's enrolment schema
         createTime:
-          type: string
+          type: integer
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -5379,13 +5380,13 @@ components:
           description: |-
             id is the unique group identifier.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: |
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -5639,13 +5640,13 @@ components:
           format: uuid
           description: id is the Access Request's unique identifier.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
             epoch.
         processedTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             processedTime is the last time the request was actioned by the caregiver
@@ -5706,7 +5707,7 @@ components:
           description: |-
             id is the unique identifier of the school's Enrolment record.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
@@ -5980,13 +5981,13 @@ components:
           description: |-
             id is the unique identifier of the school's Enrolment record.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
@@ -6360,13 +6361,13 @@ components:
           format: uuid
           description: id is the Person's unique identifier.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
@@ -6493,7 +6494,7 @@ components:
           format: int32
           description: total contains the number of posts.
         latestPostDate:
-          type: string
+          type: integer
           format: int64
           description: |-
             latestPostDate contains the epoch timestamp of latest post (displayDate).
@@ -7248,13 +7249,13 @@ components:
           description: |-
             id is the unique identifier linked to an option.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
@@ -7336,12 +7337,12 @@ components:
           format: uuid
           description: id is the unique identifier linked to an option
         createTime:
-          type: string
+          type: integer
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -7391,12 +7392,12 @@ components:
           format: uuid
           description: id is the unique identifier linked to an option heading
         createTime:
-          type: string
+          type: integer
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -7444,45 +7445,6 @@ components:
         statusCode:
           "$ref": "#/components/schemas/StatusCode"
 
-    schoolsPhoneNumber:
-      type: object
-      description: |-
-        PhoneNumber provides a simplified structure which is based on the North
-        American Numbering Plan.
-        See https://en.wikipedia.org/wiki/North_American_Numbering_Plan for more
-        details.
-      properties:
-        internationalDialingPrefix:
-          type: string
-          description: |-
-            InternationalDialingPrefix provides the international dialing prefix to
-            reach the country. For example, '00'
-        countryCallingCode:
-          type: string
-          description: |-
-            CountryCallingCode provides the Country Code needed to dial the number.
-            For example, '64' is New Zealand.
-        areaCode:
-          type: string
-          description: |-
-            AreaCode is the area to which you are calling within the country.
-            For example, '3' is Christchurch and '21' is vodafone cellphones.
-        exchangeCode:
-          type: string
-          description: |-
-            ExchangeCode is the local phone exchange to which you will be routed to
-            within the area. For example, '335'.
-        subscriberNumber:
-          type: string
-          description: |-
-            SubscriberNumber is the designated line the Person is given to a
-            subscriber.
-        extensionNumber:
-          type: string
-          description: |-
-            extensionNumber provides a field to store an office extension number.
-            For example #768
-
     schoolsSchool:
       type: object
       description: School is model of the resource that is persisted to a database
@@ -7492,12 +7454,12 @@ components:
           format: uuid
           description: id is the School's unique identifier.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds from
@@ -7513,9 +7475,15 @@ components:
             domain stores the school's official website address for use in
             documents and reports.
         phone:
-          "$ref": "#/components/schemas/schoolsPhoneNumber"
+          type: string
+          description: |-
+            phone is the School Phone Number on which the public can reach
+            the school from.
         fax:
-          "$ref": "#/components/schemas/schoolsPhoneNumber"
+          type: string
+          description: |-
+            fax is the School Fax Number on which the public can send
+            facsimile messages.
         emailAddress:
           type: string
           format: email
@@ -7718,7 +7686,7 @@ components:
           description: |-
             id is the unique identifier of the school's timetabled period.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
@@ -7788,13 +7756,13 @@ components:
             id is the unique identifier of the school's timetable structure
             record.
         createTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             createTime is when the resource was created in seconds from the
             epoch.
         updateTime:
-          type: string
+          type: integer
           format: int64
           description: |-
             updateTime is the last time the resource was modified in seconds
