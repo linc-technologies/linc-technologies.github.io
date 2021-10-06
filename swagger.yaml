@@ -1038,12 +1038,12 @@ paths:
           - urn:hero:dates:dates
       tags:
         - Dates
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            "$ref": "#/components/schemas/datesBulkCreateDatesRequest"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/datesBulkCreateDatesRequest"
       responses:
         '200':
           description: A successful response.
