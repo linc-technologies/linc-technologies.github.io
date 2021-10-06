@@ -3203,12 +3203,12 @@ paths:
           - urn:hero:timetable:periods
       tags:
         - Timetable
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            "$ref": "#/components/schemas/timetableCreatePeriodRequest"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/timetableCreatePeriodRequest"
       responses:
         '200':
           description: A successful response.
