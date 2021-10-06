@@ -7475,14 +7475,14 @@ components:
             documents and reports.
         phone:
           type: string
-            description: |-
-              phone is the School Phone Number on which the public can reach
-              the school from.
+          description: |-
+            phone is the School Phone Number on which the public can reach
+            the school from.
         fax:
           type: string
-            description: |-
-              fax is the School Fax Number on which the public can send
-              facsimile messages.
+          description: |-
+            fax is the School Fax Number on which the public can send
+            facsimile messages.
         emailAddress:
           type: string
           format: email
