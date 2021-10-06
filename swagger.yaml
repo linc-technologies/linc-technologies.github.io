@@ -914,12 +914,12 @@ paths:
           - urn:hero:dates:dates
       tags:
         - Dates
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            "$ref": "#/components/schemas/datesCreateDateRequest"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/datesCreateDateRequest"
       responses:
         '200':
           description: A successful response.
