@@ -6,13 +6,13 @@ info:
   x-logo:
     url: "./hero-logo.png"
     backgroundColor: "#FAFAFA"
-    altText: "Hero, by LINC-ED"
+    altText: "Hero"
   description: |
     ### Welcome to the Hero Developer portal.
 
     The following documentation describes the resources that make up the
     official Hero REST API.
-    If you have any problems or requests, please contact LINC-ED Support.
+    If you have any problems or requests, please contact Hero Support.
 
 servers:
   - url: https://staging-api.linc-ed.com
@@ -6447,7 +6447,7 @@ components:
          - PersonType_STAFF (2) specifies that the Person record is a staff member
            of a school.
          - PersonType_CAREGIVER (3) specifies that the Person record is a parent.
-         - PersonType_LINCED (15) specifies a LINC-ED staff member or people with
+         - PersonType_LINCED (15) specifies a Hero staff member or people with
            administrator rights.
       default: 0
       enum:
