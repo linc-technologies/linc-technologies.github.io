@@ -6,7 +6,7 @@ info:
   x-logo:
     url: "./hero-logo.png"
     backgroundColor: "#FAFAFA"
-    altText: "Hero, by LINC-ED"
+    altText: "Hero"
   description: |
     ### Welcome to the Hero Developer portal.
 
